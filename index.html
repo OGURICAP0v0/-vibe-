@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#3A6655" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="五十音七日帖" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='28' fill='%233A6655'/%3E%3Ctext x='60' y='82' font-family='serif' font-size='68' font-weight='bold' fill='%23FAF8F5' text-anchor='middle'%3E%E3%81%82%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='28' fill='%233A6655'/%3E%3Ctext x='60' y='82' font-family='serif' font-size='68' font-weight='bold' fill='%23FAF8F5' text-anchor='middle'%3E%E3%81%82%3C/text%3E%3C/svg%3E" />
+  <title>五十音·七日帖 | 极简日语五十音图学习与记忆工坊</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            washi: {
+              50: '#FAF8F5',
+              100: '#F3EFE6',
+              200: '#E6DFD1',
+              300: '#D5CBB8',
+            },
+            matcha: {
+              50: '#F1F6F3',
+              100: '#DCECE4',
+              200: '#B8D8C9',
+              500: '#497A67',
+              600: '#3A6655',
+              700: '#2D5043',
+              800: '#233E34',
+            },
+            sakura: {
+              50: '#FDF4F2',
+              100: '#FBE5E0',
+              500: '#D66853',
+              600: '#BF533E',
+            },
+            amberjp: {
+              50: '#FEF9EE',
+              100: '#FCF0D5',
+              500: '#D4942A',
+              600: '#B87B19',
+            },
+            sumi: {
+              900: '#232624',
+              700: '#4A4F4C',
+              500: '#767C78',
+              300: '#A8AEA9',
+            }
+          },
+          fontFamily: {
+            sans: ['"Inter"', '"Noto Sans JP"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            serifjp: ['"Noto Serif JP"', '"Songti SC"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #232624;
+      font-family: 'Inter', 'Noto Sans JP', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .kana-font {
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .kana-serif {
+      font-family: 'Noto Serif JP', 'Noto Sans JP', serif;
+    }
+    /* Custom subtle scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F3EFE6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D5CBB8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #497A67;
+    }
+    .card-transition {
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-transition:hover {
+      transform: translateY(-2px);
+    }
+    .card-transition:active {
+      transform: translateY(0px) scale(0.98);
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(73, 122, 103, 0.45); }
+      70% { box-shadow: 0 0 0 10px rgba(73, 122, 103, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(73, 122, 103, 0); }
+    }
+    .speaking-glow {
+      animation: pulse-ring 0.9s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+      border-color: #3A6655 !important;
+      background-color: #F1F6F3 !important;
+    }
+    /* Grid guidelines for stroke canvas */
+    .mizi-grid {
+      background-color: #FAF8F5;
+      background-image:
+        linear-gradient(to right, rgba(213, 203, 184, 0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(213, 203, 184, 0.5) 1px, transparent 1px);
+      background-size: 50% 50%;
+    }
+  </style>
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body class="min-h-screen flex flex-col selection:bg-matcha-200 selection:text-matcha-800">
+
+  <!-- Top Sticky Header -->
+  <header class="sticky top-0 z-30 bg-washi-50/95 backdrop-blur-md border-b border-washi-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-matcha-600 text-white flex items-center justify-center shadow-sm">
+          <span class="kana-serif text-xl font-bold tracking-tighter">あ</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold text-sumi-900 tracking-tight">五十音·七日帖</h1>
+            <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-matcha-100 text-matcha-700">7天科学记忆</span>
+          </div>
+          <p class="text-xs text-sumi-500 hidden sm:block">字源联想 · 词境跟读 · 范围抽查 · 错题闭环</p>
+        </div>
+      </div>
+
+      <!-- Global Script Switcher (Always accessible right upon entry) -->
+      <div class="flex items-center bg-washi-100 p-1 rounded-xl border border-washi-200" role="group" aria-label="假名显示模式">
+        <button id="scriptBtn-hiragana" onclick="setScriptMode('hiragana')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all bg-white text-matcha-700 shadow-sm">
+          平假名 <span class="kana-font font-bold ml-0.5">あ</span>
+        </button>
+        <button id="scriptBtn-katakana" onclick="setScriptMode('katakana')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:text-sumi-900">
+          片假名 <span class="kana-font font-bold ml-0.5">ア</span>
+        </button>
+        <button id="scriptBtn-both" onclick="setScriptMode('both')" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:text-sumi-900">
+          平片双显 <span class="kana-font font-bold ml-0.5">あ/ア</span>
+        </button>
+      </div>
+
+      <!-- Right Navigation Tabs -->
+      <nav class="flex items-center gap-1 sm:gap-1.5 w-full lg:w-auto justify-between sm:justify-end border-t lg:border-t-0 pt-2 lg:pt-0 border-washi-200">
+        <button id="navBtn-chart" onclick="switchMainTab('chart')" class="flex-1 lg:flex-initial px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-matcha-600 text-white shadow-sm flex items-center justify-center gap-1.5">
+          <span>五十音图</span>
+        </button>
+        <button id="navBtn-quiz" onclick="switchMainTab('quiz')" class="flex-1 lg:flex-initial px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:bg-washi-100 flex items-center justify-center gap-1.5">
+          <span>范围抽查</span>
+          <span id="navBadge-range" class="px-1.5 py-0.2 text-[11px] rounded-full bg-matcha-100 text-matcha-700 font-semibold">15音</span>
+        </button>
+        <button id="navBtn-review" onclick="switchMainTab('review')" class="flex-1 lg:flex-initial px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:bg-washi-100 flex items-center justify-center gap-1.5">
+          <span>错题/收藏</span>
+          <span id="navBadge-review" class="px-1.5 py-0.2 text-[11px] rounded-full bg-sakura-100 text-sakura-600 font-semibold">0</span>
+        </button>
+        <button id="navBtn-plan" onclick="switchMainTab('plan')" class="flex-1 lg:flex-initial px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:bg-washi-100 flex items-center justify-center gap-1.5">
+          <span>7天攻略 & 易混音</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-5 space-y-6">
+
+    <!-- Top Quick Banner: 7-Day Progress & Quick Range Action -->
+    <section class="bg-white rounded-2xl border border-washi-200 p-4 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-start sm:items-center gap-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-matcha-50 border border-matcha-200 flex flex-col items-center justify-center text-matcha-700 shrink-0">
+          <span class="text-[10px] font-semibold uppercase tracking-wider">DAY</span>
+          <span id="bannerDayNum" class="text-base font-bold leading-none">1</span>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h2 id="bannerDayTitle" class="text-sm sm:text-base font-bold text-sumi-900">Day 1：元音之本与前3行清音（あ・か・さ行 15音）</h2>
+            <button onclick="switchMainTab('plan')" class="text-xs text-matcha-600 hover:text-matcha-800 font-medium underline underline-offset-2">切换天数/看攻略</button>
+          </div>
+          <p id="bannerDayDesc" class="text-xs text-sumi-500 mt-0.5">点击任意假名直接听发音、看单词与记忆口诀；勾选行即可在指定范围内随机抽查平片假名与读音。</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end shrink-0">
+        <div class="flex flex-wrap items-center gap-1.5 bg-washi-50 px-3 py-1.5 rounded-xl border border-washi-200 text-xs text-sumi-700">
+          <span>音源:</span>
+          <button id="voiceSrc-cloud" onclick="setVoiceSource('cloud')" class="px-2 py-0.5 rounded font-medium bg-matcha-600 text-white" title="在线高响度真人TTS语音（自动降级本地语音）">高响度语音</button>
+          <button id="voiceSrc-local" onclick="setVoiceSource('local')" class="px-2 py-0.5 rounded font-medium text-sumi-700 hover:bg-washi-200" title="浏览器内置Web Speech系统语音">系统内置</button>
+          <span class="text-washi-300 mx-0.5">|</span>
+          <span>语速:</span>
+          <button id="speedBtn-normal" onclick="setSpeechRate(0.9)" class="px-2 py-0.5 rounded font-medium bg-matcha-600 text-white">标准</button>
+          <button id="speedBtn-slow" onclick="setSpeechRate(0.65)" class="px-2 py-0.5 rounded font-medium text-sumi-700 hover:bg-washi-200">慢速跟读</button>
+        </div>
+        <button onclick="quickStartSelectedQuiz()" class="px-3.5 py-2 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all flex items-center gap-1.5">
+          <span>抽查已选范围 (<span id="quickSelectedCount">15</span>音)</span>
+          <span>→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: 五十音图主视图 (GOJUON CHART VIEW)   -->
+    <!-- ========================================== -->
+    <section id="view-chart" class="space-y-4">
+      <!-- Category & Filter Toolbar -->
+      <div class="bg-white rounded-2xl border border-washi-200 p-3.5 shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+        <!-- Category Switcher: 清音 / 浊音·半浊音 / 拗音 -->
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button id="catBtn-seion" onclick="setCategory('seion')" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-matcha-600 text-white shadow-sm">
+            清音 <span class="text-[11px] opacity-85 font-normal ml-0.5">(46音)</span>
+          </button>
+          <button id="catBtn-dakuon" onclick="setCategory('dakuon')" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-washi-50 text-sumi-700 hover:bg-washi-100">
+            浊音・半浊音 <span class="text-[11px] opacity-75 font-normal ml-0.5">(25音)</span>
+          </button>
+          <button id="catBtn-youon" onclick="setCategory('youon')" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-washi-50 text-sumi-700 hover:bg-washi-100">
+            拗音 <span class="text-[11px] opacity-75 font-normal ml-0.5">(33音)</span>
+          </button>
+
+          <div class="h-5 w-px bg-washi-200 mx-1 hidden sm:block"></div>
+
+          <!-- Display Toggles -->
+          <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-washi-50 border border-washi-200 text-xs text-sumi-700 cursor-pointer select-none">
+            <input type="checkbox" id="toggleShowWord" checked onchange="toggleCardOption('showWord', this.checked)" class="rounded text-matcha-600 focus:ring-0">
+            <span>卡片显示代表词</span>
+          </label>
+          <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-washi-50 border border-washi-200 text-xs text-sumi-700 cursor-pointer select-none">
+            <input type="checkbox" id="toggleOnlyMarked" onchange="toggleCardOption('onlyMarked', this.checked)" class="rounded text-matcha-600 focus:ring-0">
+            <span>仅高亮收藏/错题</span>
+          </label>
+        </div>
+
+        <!-- Quick Row Range Presets -->
+        <div class="flex flex-wrap items-center gap-1.5 text-xs">
+          <span class="text-sumi-500 font-medium mr-1">快速选复习行:</span>
+          <button onclick="selectRowPreset('first3')" class="px-2.5 py-1.5 rounded-lg bg-matcha-50 hover:bg-matcha-100 text-matcha-700 font-medium border border-matcha-200 transition-all">
+            第1~3行 (あ~さ 15音)
+          </button>
+          <button onclick="selectRowPreset('first5')" class="px-2.5 py-1.5 rounded-lg bg-washi-50 hover:bg-washi-100 text-sumi-700 font-medium border border-washi-200 transition-all">
+            前5行 (あ~な 25音)
+          </button>
+          <button onclick="selectRowPreset('currentCat')" class="px-2.5 py-1.5 rounded-lg bg-washi-50 hover:bg-washi-100 text-sumi-700 font-medium border border-washi-200 transition-all">
+            全选当前表
+          </button>
+          <button onclick="selectRowPreset('clear')" class="px-2 py-1.5 rounded-lg text-sumi-500 hover:text-sumi-900 hover:bg-washi-100 transition-all">
+            清空勾选
+          </button>
+        </div>
+      </div>
+
+      <!-- Helper Instruction Strip -->
+      <div class="flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-sumi-500">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-matcha-600 inline-block"></span> 左键点击卡片：<strong>立即发音</strong></span>
+          <span class="inline-flex items-center gap-1">📖 点击卡片底部「词/忆」：<strong>查看简单单词、字源口诀与手写临摹</strong></span>
+          <span class="inline-flex items-center gap-1">★ 点击五角星：<strong>加入收藏夹</strong></span>
+        </div>
+        <div id="audioStatusNotice" class="text-matcha-700 font-medium">🔊 日语发音引擎已就绪</div>
+      </div>
+
+      <!-- Gojuon Table Container -->
+      <div id="kanaGridContainer" class="space-y-2.5"></div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: 范围随机抽查 & 闪卡复习 (QUIZ VIEW)    -->
+    <!-- ========================================== -->
+    <section id="view-quiz" class="hidden space-y-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Left Sidebar: Range Selector & Quiz Settings -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-washi-200 p-5 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-sumi-900">1. 选择抽查范围</h3>
+            <span id="quizPoolSummary" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-matcha-50 text-matcha-700 border border-matcha-200">已选 3 行 · 共 15 音</span>
+          </div>
+
+          <!-- Source Mode Selector -->
+          <div class="grid grid-cols-3 gap-2">
+            <button id="quizSrc-rows" onclick="setQuizSource('rows')" class="px-3 py-2 rounded-xl text-xs font-semibold border transition-all bg-matcha-600 text-white border-matcha-600">
+              按行选择范围
+            </button>
+            <button id="quizSrc-mistakes" onclick="setQuizSource('mistakes')" class="px-3 py-2 rounded-xl text-xs font-semibold border transition-all bg-washi-50 text-sumi-700 border-washi-200 hover:bg-washi-100">
+              错题集 (<span id="quizMistakeCount">0</span>)
+            </button>
+            <button id="quizSrc-favorites" onclick="setQuizSource('favorites')" class="px-3 py-2 rounded-xl text-xs font-semibold border transition-all bg-washi-50 text-sumi-700 border-washi-200 hover:bg-washi-100">
+              收藏夹 (<span id="quizFavCount">0</span>)
+            </button>
+          </div>
+
+          <!-- Row Selection Panel (Shown when source == 'rows') -->
+          <div id="quizRowSelectorBox" class="space-y-3 border-t border-washi-200 pt-3">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button onclick="selectRowPreset('first3')" class="px-2.5 py-1 rounded-lg text-xs bg-matcha-50 text-matcha-700 border border-matcha-200 font-medium">第1~3行(15音)</button>
+              <button onclick="selectRowPreset('first5')" class="px-2.5 py-1 rounded-lg text-xs bg-washi-50 text-sumi-700 border border-washi-200">第1~5行(25音)</button>
+              <button onclick="selectRowPreset('allSeion')" class="px-2.5 py-1 rounded-lg text-xs bg-washi-50 text-sumi-700 border border-washi-200">全部清音(46音)</button>
+              <button onclick="selectRowPreset('allDakuon')" class="px-2.5 py-1 rounded-lg text-xs bg-washi-50 text-sumi-700 border border-washi-200">浊音/半浊音(25音)</button>
+              <button onclick="selectRowPreset('allYouon')" class="px-2.5 py-1 rounded-lg text-xs bg-washi-50 text-sumi-700 border border-washi-200">拗音(33音)</button>
+            </div>
+            <div id="quizRowCheckboxes" class="max-h-60 overflow-y-auto pr-1 grid grid-cols-2 sm:grid-cols-3 gap-1.5"></div>
+          </div>
+
+          <!-- Quiz Mode & Question Type Settings -->
+          <div class="border-t border-washi-200 pt-4 space-y-3">
+            <h3 class="text-base font-bold text-sumi-900">2. 选择抽查题型</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button id="qType-mixed" onclick="setQuizType('mixed')" class="text-left p-2.5 rounded-xl border border-matcha-600 bg-matcha-50/70 transition-all">
+                <div class="text-xs font-bold text-matcha-800">🌟 全能混合抽查 (推荐)</div>
+                <div class="text-[11px] text-sumi-500 mt-0.5">随机考读音、平片假名互转、听音辨字</div>
+              </button>
+              <button id="qType-kana2romaji" onclick="setQuizType('kana2romaji')" class="text-left p-2.5 rounded-xl border border-washi-200 bg-washi-50 hover:bg-washi-100 transition-all">
+                <div class="text-xs font-bold text-sumi-900">👀 看假名 → 选读音</div>
+                <div class="text-[11px] text-sumi-500 mt-0.5">出现平假名或片假名，选正确罗马音</div>
+              </button>
+              <button id="qType-hira2kata" onclick="setQuizType('hira2kata')" class="text-left p-2.5 rounded-xl border border-washi-200 bg-washi-50 hover:bg-washi-100 transition-all">
+                <div class="text-xs font-bold text-sumi-900">🔄 平假名 ↔ 片假名互认</div>
+                <div class="text-[11px] text-sumi-500 mt-0.5">专治片假名不熟，建立平片双向反射</div>
+              </button>
+              <button id="qType-audio2kana" onclick="setQuizType('audio2kana')" class="text-left p-2.5 rounded-xl border border-washi-200 bg-washi-50 hover:bg-washi-100 transition-all">
+                <div class="text-xs font-bold text-sumi-900">🎧 听语音 → 盲选假名</div>
+                <div class="text-[11px] text-sumi-500 mt-0.5">只听发音选出对应平/片假名，练听力</div>
+              </button>
+              <button id="qType-typing" onclick="setQuizType('typing')" class="text-left p-2.5 rounded-xl border border-washi-200 bg-washi-50 hover:bg-washi-100 transition-all">
+                <div class="text-xs font-bold text-sumi-900">⌨️ 看假名 → 键盘拼写读音</div>
+                <div class="text-[11px] text-sumi-500 mt-0.5">直接输入罗马音，零提示深度检验</div>
+              </button>
+              <button id="qType-flashcard" onclick="setQuizType('flashcard')" class="text-left p-2.5 rounded-xl border border-washi-200 bg-washi-50 hover:bg-washi-100 transition-all">
+                <div class="text-xs font-bold text-sumi-900">🃏 主动回忆闪卡 (Anki模式)</div>
+                <div class="text-[11px] text-sumi-500 mt-0.5">看字默念再翻面，一键归入收藏或错题</div>
+              </button>
+            </div>
+          </div>
+
+          <button onclick="startNewQuizSession()" class="w-full py-3 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white font-bold text-sm shadow-sm transition-all">
+            重新洗牌 · 开始本轮抽查
+          </button>
+        </div>
+
+        <!-- Right Main Stage: Active Quiz / Flashcard Arena -->
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-washi-200 p-5 sm:p-6 shadow-sm flex flex-col justify-between min-h-[460px]">
+          <!-- Top Status Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-washi-200">
+            <div class="flex items-center gap-2">
+              <span id="quizStageBadge" class="px-2.5 py-1 rounded-lg bg-matcha-50 text-matcha-700 text-xs font-semibold">范围随机抽查</span>
+              <span id="quizProgressText" class="text-xs text-sumi-500 font-medium">第 1 / 15 题</span>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-matcha-700 font-semibold">✓ 答对: <span id="quizCorrectNum">0</span></span>
+              <span class="text-sakura-600 font-semibold">✗ 答错(自动入错题集): <span id="quizWrongNum">0</span></span>
+              <button id="quizFavCurrentBtn" onclick="toggleFavoriteCurrentQuizKana()" class="px-2.5 py-1 rounded-lg border border-washi-200 hover:bg-amberjp-50 text-sumi-700 transition-all">
+                ☆ 收藏此音
+              </button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full h-1.5 bg-washi-100 rounded-full overflow-hidden my-3">
+            <div id="quizProgressBar" class="h-full bg-matcha-600 transition-all duration-300" style="width: 7%"></div>
+          </div>
+
+          <!-- Dynamic Quiz Content Area -->
+          <div id="quizArenaBody" class="flex-1 flex flex-col items-center justify-center py-4"></div>
+
+          <!-- Bottom Feedback & Next Bar -->
+          <div id="quizFeedbackBox" class="hidden mt-4 p-4 rounded-xl border transition-all"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: 错题集与收藏夹 (REVIEW HUB VIEW)      -->
+    <!-- ========================================== -->
+    <section id="view-review" class="hidden space-y-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Mistakes Column -->
+        <div class="bg-white rounded-2xl border border-washi-200 p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-washi-200">
+              <div>
+                <h3 class="text-base font-bold text-sumi-900 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sakura-500"></span>
+                  <span>错题集 (Mistake Book)</span>
+                  <span id="reviewMistakeTotal" class="text-xs px-2 py-0.5 rounded-full bg-sakura-100 text-sakura-600 font-bold">0</span>
+                </h3>
+                <p class="text-xs text-sumi-500 mt-0.5">抽查答错的假名会自动收录至此；在错题抽查中连续答对或手动掌握即可移出。</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="startReviewQuiz('mistakes')" class="px-3 py-1.5 rounded-xl bg-sakura-500 hover:bg-sakura-600 text-white text-xs font-semibold shadow-sm transition-all">
+                  来回抽查错题
+                </button>
+                <button onclick="clearAllMistakes()" class="px-2.5 py-1.5 rounded-xl bg-washi-100 hover:bg-washi-200 text-sumi-700 text-xs transition-all">
+                  清空
+                </button>
+              </div>
+            </div>
+            <div id="mistakeListContainer" class="mt-4 space-y-2.5 max-h-[460px] overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+
+        <!-- Favorites Column -->
+        <div class="bg-white rounded-2xl border border-washi-200 p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-washi-200">
+              <div>
+                <h3 class="text-base font-bold text-sumi-900 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amberjp-500"></span>
+                  <span>收藏夹 (不太熟练的音)</span>
+                  <span id="reviewFavTotal" class="text-xs px-2 py-0.5 rounded-full bg-amberjp-100 text-amberjp-600 font-bold">0</span>
+                </h3>
+                <p class="text-xs text-sumi-500 mt-0.5">遇到容易忘或字形陌生的假名点 ★ 即可收藏，随时单独拉出来强化训练。</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="startReviewQuiz('favorites')" class="px-3 py-1.5 rounded-xl bg-amberjp-500 hover:bg-amberjp-600 text-white text-xs font-semibold shadow-sm transition-all">
+                  专项抽查收藏
+                </button>
+                <button onclick="clearAllFavorites()" class="px-2.5 py-1.5 rounded-xl bg-washi-100 hover:bg-washi-200 text-sumi-700 text-xs transition-all">
+                  清空
+                </button>
+              </div>
+            </div>
+            <div id="favoriteListContainer" class="mt-4 space-y-2.5 max-h-[460px] overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: 7天突破计划 & 易混假名对比实验室        -->
+    <!-- ========================================== -->
+    <section id="view-plan" class="hidden space-y-6">
+      <!-- 7-Day Roadmap -->
+      <div class="bg-white rounded-2xl border border-washi-200 p-5 sm:p-6 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-washi-200">
+          <div>
+            <h3 class="text-lg font-bold text-sumi-900">📅 一周（7天）科学攻克五十音路线图</h3>
+            <p class="text-xs text-sumi-500 mt-0.5">为什么很多人背了忘？因为只顺着背「あいうえお」，一旦打乱或换成片假名就认不出。按以下7天「字源+词境+乱序抽查」法，每天只需25分钟即可稳固掌握。</p>
+          </div>
+          <div id="planMasterySummary" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-matcha-50 text-matcha-700 border border-matcha-200 shrink-0">
+            已完成 0 / 7 天打卡
+          </div>
+        </div>
+
+        <div id="sevenDayPlanGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Confusing Kana Comparison Lab -->
+      <div class="bg-white rounded-2xl border border-washi-200 p-5 sm:p-6 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-washi-200">
+          <div>
+            <h3 class="text-lg font-bold text-sumi-900">🔍 易混「双胞胎假名」对比记忆实验室</h3>
+            <p class="text-xs text-sumi-500 mt-0.5">专门整理初学者错误率最高的平假名、片假名形近字，点击即可对比听音并一键拉起专项辨析抽查。</p>
+          </div>
+          <button onclick="startConfusingKanaQuiz()" class="px-4 py-2 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white text-xs font-semibold shadow-sm transition-all shrink-0">
+            特训全部易混假名 →
+          </button>
+        </div>
+
+        <div id="confusingPairsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: 假名详情 + 简单词汇跟读 + 手写临摹板    -->
+  <!-- ========================================== -->
+  <div id="kanaDetailModal" class="fixed inset-0 z-50 hidden bg-sumi-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-washi-50 rounded-3xl border border-washi-200 max-w-2xl w-full p-5 sm:p-6 shadow-xl space-y-5 max-h-[92vh] overflow-y-auto">
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <button onclick="speakCurrentModalKana()" class="w-16 h-16 rounded-2xl bg-matcha-600 hover:bg-matcha-700 text-white flex flex-col items-center justify-center shadow-sm transition-all group">
+            <span id="modalMainKana" class="kana-font text-3xl font-bold leading-none">あ</span>
+            <span class="text-[10px] opacity-90 mt-1 flex items-center gap-0.5">🔊 <span id="modalRomaji">a</span></span>
+          </button>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="modalRowLabel" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-matcha-100 text-matcha-700">第1行 · あ行</span>
+              <button id="modalFavBtn" onclick="toggleModalFavorite()" class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-washi-300 bg-white hover:bg-amberjp-50 text-sumi-700 transition-all">
+                ☆ 收藏
+              </button>
+            </div>
+            <div class="flex items-baseline gap-4 mt-2">
+              <div class="text-sm text-sumi-700">平假名: <strong id="modalHira" class="kana-font text-xl text-sumi-900">あ</strong></div>
+              <div class="text-sm text-sumi-700">片假名: <strong id="modalKata" class="kana-font text-xl text-sumi-900">ア</strong></div>
+              <div class="text-sm text-sumi-700">罗马音: <strong id="modalRomaText" class="text-base text-matcha-700 font-mono">a</strong></div>
+            </div>
+          </div>
+        </div>
+        <button onclick="closeKanaModal()" class="w-8 h-8 rounded-full bg-washi-200 hover:bg-washi-300 text-sumi-700 flex items-center justify-center text-sm font-bold">✕</button>
+      </div>
+
+      <!-- Origin & Mnemonic Box -->
+      <div class="bg-white rounded-2xl border border-washi-200 p-4 space-y-1.5">
+        <div class="text-xs font-bold text-matcha-700 uppercase tracking-wider">💡 字源演变与速记口诀</div>
+        <p id="modalOriginText" class="text-sm text-sumi-900 font-medium leading-relaxed"></p>
+      </div>
+
+      <!-- Two-Column: Vocabulary + Handwriting Practice -->
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+        <!-- Vocabulary List -->
+        <div class="sm:col-span-7 bg-white rounded-2xl border border-washi-200 p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-sumi-900">📒 包含该假名的简单高频词（点击单词发音）</span>
+          </div>
+          <div id="modalWordsList" class="space-y-2"></div>
+        </div>
+
+        <!-- Stroke Practice Pad -->
+        <div class="sm:col-span-5 bg-white rounded-2xl border border-washi-200 p-4 flex flex-col items-center justify-between space-y-2">
+          <div class="w-full flex items-center justify-between text-xs">
+            <span class="font-bold text-sumi-900">✍️ 临摹手写板</span>
+            <div class="flex items-center gap-1">
+              <button id="padSwitchHira" onclick="setPadGhost('hira')" class="px-2 py-0.5 rounded bg-matcha-100 text-matcha-700 font-semibold">平</button>
+              <button id="padSwitchKata" onclick="setPadGhost('kata')" class="px-2 py-0.5 rounded bg-washi-100 text-sumi-700">片</button>
+              <button onclick="clearPracticeCanvas()" class="px-2 py-0.5 rounded bg-washi-100 hover:bg-washi-200 text-sumi-700">重写</button>
+            </div>
+          </div>
+          <div class="relative w-40 h-40 rounded-xl border-2 border-washi-300 mizi-grid overflow-hidden select-none">
+            <div id="padGhostChar" class="absolute inset-0 flex items-center justify-center kana-serif text-7xl text-washi-300/65 pointer-events-none select-none">あ</div>
+            <canvas id="practiceCanvas" width="160" height="160" class="relative z-10 w-full h-full cursor-crosshair touch-none"></canvas>
+          </div>
+          <p class="text-[11px] text-sumi-500 text-center">用鼠标或手指在米字格内描摹，加深肌肉记忆</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer Prev/Next Navigation -->
+      <div class="flex items-center justify-between pt-2 border-t border-washi-200 text-xs">
+        <button onclick="navigateModalKana(-1)" class="px-3.5 py-2 rounded-xl bg-white border border-washi-200 hover:bg-washi-100 font-semibold text-sumi-700">← 上一个假名</button>
+        <button onclick="speakCurrentModalKana()" class="px-4 py-2 rounded-xl bg-matcha-50 text-matcha-700 border border-matcha-200 font-semibold hover:bg-matcha-100">🔊 再听一遍发音</button>
+        <button onclick="navigateModalKana(1)" class="px-3.5 py-2 rounded-xl bg-white border border-washi-200 hover:bg-washi-100 font-semibold text-sumi-700">下一个假名 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden px-4 py-2.5 rounded-xl bg-sumi-900 text-white text-xs font-medium shadow-lg transition-all"></div>
+
+  <script>
+    // =========================================================================
+    // 1. COMPLETE GOJUON DATASET (清音 46 + 浊音/半浊音 25 + 拗音 33 = 104 音)
+    // =========================================================================
+    const KANA_ROWS = [
+      // --- 清音 (Seion: Rows 1 to 10) ---
+      {
+        id: 'row_a', category: 'seion', order: 1, name: '第1行 · あ行 (元音)', desc: '日语发音的基石，口型自然微张',
+        items: [
+          { id: 'a', hira: 'あ', kata: 'ア', romaji: 'a', origin: '平假名源于汉字「安」草书，片假名源于「阿」左偏旁。口诀：安(あ)心坐在阿(ア)姨旁，开口读 a。', words: [{ jp: 'あい', kj: '愛', cn: '爱 / 爱情', rm: 'ai' }, { jp: 'あさ', kj: '朝', cn: '早晨', rm: 'asa' }, { jp: 'あめ', kj: '雨', cn: '雨 / 糖果', rm: 'ame' }] },
+          { id: 'i', hira: 'い', kata: 'イ', romaji: 'i', origin: '平假名源于「以」草书，片假名源于「伊」单人旁。口诀：以(い)前有个人(イ)，微笑读作 i。', words: [{ jp: 'いぬ', kj: '犬', cn: '小狗', rm: 'inu' }, { jp: 'いちご', kj: '苺', cn: '草莓', rm: 'ichigo' }, { jp: 'いま', kj: '今', cn: '现在', rm: 'ima' }] },
+          { id: 'u', hira: 'う', kata: 'ウ', romaji: 'u', origin: '平假名像被踢弯腰的人（源于「宇」），片假名是宝盖头。口诀：宝盖头(ウ)下弯着腰(う)，闷声读作 u（嘴唇不撅）。', words: [{ jp: 'うみ', kj: '海', cn: '大海', rm: 'umi' }, { jp: 'うた', kj: '歌', cn: '歌曲', rm: 'uta' }, { jp: 'うし', kj: '牛', cn: '牛', rm: 'ushi' }] },
+          { id: 'e', hira: 'え', kata: 'エ', romaji: 'e', origin: '平假名源于「衣」，片假名源于「江」右边的「工」。口诀：穿衣(え)做工(エ)，惊讶读作 e。', words: [{ jp: 'えき', kj: '駅', cn: '车站', rm: 'eki' }, { jp: 'えがお', kj: '笑顔', cn: '笑脸', rm: 'egao' }] },
+          { id: 'o', hira: 'お', kata: 'オ', romaji: 'o', origin: '平假名源于「於」，片假名源于「才」。口诀：不学无术(お)怎成才(オ)，恍然大悟读 o。', words: [{ jp: 'おちゃ', kj: 'お茶', cn: '茶水', rm: 'ocha' }, { jp: 'おと', kj: '音', cn: '声音', rm: 'oto' }] }
+        ]
+      },
+      {
+        id: 'row_ka', category: 'seion', order: 2, name: '第2行 · か行', desc: '辅音 k + 五个元音拼读',
+        items: [
+          { id: 'ka', hira: 'か', kata: 'カ', romaji: 'ka', origin: '均源于汉字「加」：平假名比片假名「カ（力）」多一点。口诀：用力(カ)加一点汗(か)，卡住读 ka。', words: [{ jp: 'かさ', kj: '傘', cn: '雨伞', rm: 'kasa' }, { jp: 'かぞく', kj: '家族', cn: '家人', rm: 'kazoku' }] },
+          { id: 'ki', hira: 'き', kata: 'キ', romaji: 'ki', origin: '源于「幾」，像一把老式钥匙(Key)。口诀：双手拿钥匙(き/キ)，开门读 ki (Key)。', words: [{ jp: 'き', kj: '木', cn: '树木', rm: 'ki' }, { jp: 'きもの', kj: '着物', cn: '和服', rm: 'kimono' }] },
+          { id: 'ku', hira: 'く', kata: 'ク', romaji: 'ku', origin: '源于「久」：平假名像小于号 <，片假名像「久」去捺。口诀：委屈折了腿(く)，哭(ku)了很久(ク)。', words: [{ jp: 'くち', kj: '口', cn: '嘴巴', rm: 'kuchi' }, { jp: 'くも', kj: '雲', cn: '云朵', rm: 'kumo' }] },
+          { id: 'ke', hira: 'け', kata: 'ケ', romaji: 'ke', origin: '平假名源于「計」，片假名源于「介」上半部。口诀：计划(け)竹笋(ケ)开，读作 ke。', words: [{ jp: 'けさ', kj: '今朝', cn: '今天早上', rm: 'kesa' }, { jp: 'ケーキ', kj: 'Cake', cn: '蛋糕', rm: 'keeki' }] },
+          { id: 'ko', hira: 'こ', kata: 'コ', romaji: 'ko', origin: '均源于「己」：平假名上下两弯弧，片假名是方括号。口诀：圆括号(こ)方括号(コ)，阔(ko)气一家人。', words: [{ jp: 'こころ', kj: '心', cn: '心 / 心灵', rm: 'kokoro' }, { jp: 'こども', kj: '子供', cn: '孩子', rm: 'kodomo' }] }
+        ]
+      },
+      {
+        id: 'row_sa', category: 'seion', order: 3, name: '第3行 · さ行', desc: '注意「し(shi)」读作西，不读 si',
+        items: [
+          { id: 'sa', hira: 'さ', kata: 'サ', romaji: 'sa', origin: '平假名源于「左」，片假名源于「散」草字头。口诀：草(サ)地上杀(さ)鱼，读作 sa。', words: [{ jp: 'さくら', kj: '桜', cn: '樱花', rm: 'sakura' }, { jp: 'さかな', kj: '魚', cn: '鱼', rm: 'sakana' }] },
+          { id: 'shi', hira: 'し', kata: 'シ', romaji: 'shi', origin: '源于「之」：平假名像倒插的吸管，片假名是三点水（由下往上提）。口诀：用吸管(し)吸水(シ)，读作 shi(吸)。', words: [{ jp: 'しろ', kj: '白', cn: '白色', rm: 'shiro' }, { jp: 'しお', kj: '塩', cn: '盐', rm: 'shio' }] },
+          { id: 'su', hira: 'す', kata: 'ス', romaji: 'su', origin: '平假名源于「寸」（上面一横挂着藤蔓打圈），片假名源于「須」。口诀：拉面卷圈(す)挂凳子(ス)，嘶溜读 su。', words: [{ jp: 'すし', kj: '寿司', cn: '寿司', rm: 'sushi' }, { jp: 'すき', kj: '好き', cn: '喜欢', rm: 'suki' }] },
+          { id: 'se', hira: 'せ', kata: 'セ', romaji: 'se', origin: '均源于汉字「世」的简化。口诀：世界(世)少一竖就是せ/セ，读作 se。', words: [{ jp: 'せかい', kj: '世界', cn: '世界', rm: 'sekai' }, { jp: 'せんせい', kj: '先生', cn: '老师/医生', rm: 'sensei' }] },
+          { id: 'so', hira: 'そ', kata: 'ソ', romaji: 'so', origin: '均源于「曽」顶部的八字点。口诀：弯弯方便面(そ)配曾(ソ)经的汤，嗦(so)面条。', words: [{ jp: 'そら', kj: '空', cn: '天空', rm: 'sora' }, { jp: 'そと', kj: '外', cn: '外面', rm: 'soto' }] }
+        ]
+      },
+      {
+        id: 'row_ta', category: 'seion', order: 4, name: '第4行 · た行', desc: '注意「ち(chi)」和「つ(tsu)」两个特殊音',
+        items: [
+          { id: 'ta', hira: 'た', kata: 'タ', romaji: 'ta', origin: '平假名源于「太」，片假名源于「多」上半部（夕）。口诀：太(た)阳下山见夕(タ)阳，他(ta)来了。', words: [{ jp: 'たまご', kj: '卵', cn: '鸡蛋', rm: 'tamago' }, { jp: 'たべる', kj: '食べる', cn: '吃', rm: 'taberu' }] },
+          { id: 'chi', hira: 'ち', kata: 'チ', romaji: 'chi', origin: '平假名源于「知」（像数字5），片假名源于「千」。口诀：五(ち)千(チ)元大钞，七(chi)点发。', words: [{ jp: 'ちず', kj: '地図', cn: '地图', rm: 'chizu' }, { jp: 'ちいさい', kj: '小さい', cn: '小的', rm: 'chiisai' }] },
+          { id: 'tsu', hira: 'つ', kata: 'ツ', romaji: 'tsu', origin: '源于「川」：平假名像卷起的虾米，片假名三笔从上往下撇（区别于シ）。口诀：刺(tsu)身的虾米(つ)高处落(ツ)。', words: [{ jp: 'つき', kj: '月', cn: '月亮', rm: 'tsuki' }, { jp: 'つくえ', kj: '机', cn: '书桌', rm: 'tsukue' }] },
+          { id: 'te', hira: 'て', kata: 'テ', romaji: 'te', origin: '源于「天」：平假名像飞天翅膀，片假名像「天」字缺笔。口诀：飞天(て/テ)摘星，读作 te。', words: [{ jp: 'て', kj: '手', cn: '手', rm: 'te' }, { jp: 'てんき', kj: '天気', cn: '天气', rm: 'tenki' }] },
+          { id: 'to', hira: 'と', kata: 'ト', romaji: 'to', origin: '源于「止」：平假名像拔萝卜，片假名就是「卜」。口诀：小白兔拔萝卜(と/ト)，拖(to)回家。', words: [{ jp: 'とり', kj: '鳥', cn: '小鸟', rm: 'tori' }, { jp: 'ともだち', kj: '友達', cn: '朋友', rm: 'tomodachi' }] }
+        ]
+      },
+      {
+        id: 'row_na', category: 'seion', order: 5, name: '第5行 · な行', desc: '鼻音 n + 五个元音拼读',
+        items: [
+          { id: 'na', hira: 'な', kata: 'ナ', romaji: 'na', origin: '均源于「奈」：平假名上面是十下面是点打结，片假名是前两笔。口诀：十(ナ)棵奈(な)树结苹果，拿(na)走吧。', words: [{ jp: 'なつ', kj: '夏', cn: '夏天', rm: 'natsu' }, { jp: 'なまえ', kj: '名前', cn: '名字', rm: 'namae' }] },
+          { id: 'ni', hira: 'に', kata: 'ニ', romaji: 'ni', origin: '均源于「仁」：平假名左边一竖右边「二」，片假名就是「二」。口诀：仁(に)义二(ニ)字，你(ni)最懂。', words: [{ jp: 'にく', kj: '肉', cn: '肉', rm: 'niku' }, { jp: 'にほん', kj: '日本', cn: '日本', rm: 'nihon' }] },
+          { id: 'nu', hira: 'ぬ', kata: 'ヌ', romaji: 'nu', origin: '均源于「奴」：平假名像「奴」连笔且末尾打圈，片假名是「又」。口诀：匈奴(ぬ)又(ヌ)来了，读作 nu。', words: [{ jp: 'ぬの', kj: '布', cn: '布料', rm: 'nuno' }, { jp: 'いぬ', kj: '犬', cn: '狗', rm: 'inu' }] },
+          { id: 'ne', hira: 'ね', kata: 'ネ', romaji: 'ne', origin: '均源于「祢」：平假名左边一竖右边绕圈打结，片假名是示字旁「礻」。口诀：示(ネ)意猫咪绕毛线打结(ね)，读作 ne(喵)。', words: [{ jp: 'ねこ', kj: '猫', cn: '猫咪', rm: 'neko' }, { jp: 'ねる', kj: '寝る', cn: '睡觉', rm: 'neru' }] },
+          { id: 'no', hira: 'の', kata: 'ノ', romaji: 'no', origin: '均源于「乃」：平假名是瑞士卷（常见于招牌“的”），片假名是一撇。口诀：瑞士卷(の)切一刀(ノ)，读作 no。', words: [{ jp: 'のみもの', kj: '飲み物', cn: '饮料', rm: 'nomimono' }, { jp: 'ノート', kj: 'Note', cn: '笔记本', rm: 'nooto' }] }
+        ]
+      },
+      {
+        id: 'row_ha', category: 'seion', order: 6, name: '第6行 · は行', desc: '注意「ふ(fu)」是双唇轻吹气，不咬下唇',
+        items: [
+          { id: 'ha', hira: 'は', kata: 'ハ', romaji: 'ha', origin: '平假名源于「波」，片假名源于「八」。口诀：波(は)浪八(ハ)丈高，哈(ha)哈大笑。', words: [{ jp: 'はな', kj: '花', cn: '花朵', rm: 'hana' }, { jp: 'はる', kj: '春', cn: '春天', rm: 'haru' }] },
+          { id: 'hi', hira: 'ひ', kata: 'ヒ', romaji: 'hi', origin: '均源于「比」：平假名像微笑的酒窝口袋，片假名是「匕」首。口诀：口袋里藏匕(ヒ)首，笑嘻(hi)嘻(ひ)。', words: [{ jp: 'ひと', kj: '人', cn: '人', rm: 'hito' }, { jp: 'ひかり', kj: '光', cn: '光芒', rm: 'hikari' }] },
+          { id: 'fu', hira: 'ふ', kata: 'フ', romaji: 'fu', origin: '均源于「不」：平假名像戴高帽的小人，片假名是横折「フ」。口诀：不(ふ/フ)服气吹口气，读作 fu。', words: [{ jp: 'ふゆ', kj: '冬', cn: '冬天', rm: 'fuyu' }, { jp: 'ふね', kj: '船', cn: '船', rm: 'fune' }] },
+          { id: 'he', hira: 'へ', kata: 'ヘ', romaji: 'he', origin: '源于「部」：平假名和片假名长得几乎一模一样，像笑弯的眉眼 ^。口诀：眉毛弯弯(へ/ヘ)，嘿(he)嘿笑。', words: [{ jp: 'へや', kj: '部屋', cn: '房间', rm: 'heya' }, { jp: 'へいわ', kj: '平和', cn: '和平', rm: 'heiwa' }] },
+          { id: 'ho', hira: 'ほ', kata: 'ホ', romaji: 'ho', origin: '均源于「保」：平假名比「は」头上多一横，片假名是「木」字底。口诀：保(ほ)护树木(ホ)，吼(ho)一声。', words: [{ jp: 'ほし', kj: '星', cn: '星星', rm: 'hoshi' }, { jp: 'ほん', kj: '本', cn: '书本', rm: 'hon' }] }
+        ]
+      },
+      {
+        id: 'row_ma', category: 'seion', order: 7, name: '第7行 · ま行', desc: '双唇鼻音 m + 五个元音',
+        items: [
+          { id: 'ma', hira: 'ま', kata: 'マ', romaji: 'ma', origin: '平假名源于「末」（两横打结），片假名源于「万」上半部。口诀：期末(ま)考了万(マ)分，妈(ma)妈夸我。', words: [{ jp: 'まち', kj: '町', cn: '城镇 / 街道', rm: 'machi' }, { jp: 'まど', kj: '窓', cn: '窗户', rm: 'mado' }] },
+          { id: 'mi', hira: 'み', kata: 'ミ', romaji: 'mi', origin: '平假名源于「美」（像2+1），片假名是「三」斜写。口诀：二一(み)三(ミ)岁猫咪，咪(mi)咪叫。', words: [{ jp: 'みず', kj: '水', cn: '水', rm: 'mizu' }, { jp: 'みみ', kj: '耳', cn: '耳朵', rm: 'mimi' }] },
+          { id: 'mu', hira: 'む', kata: 'ム', romaji: 'mu', origin: '平假名源于「武」，片假名源于「牟」上半部「厶」。口诀：武(む)士牟(ム)利，哞(mu)哞老牛。', words: [{ jp: 'むし', kj: '虫', cn: '虫子', rm: 'mushi' }, { jp: 'むかし', kj: '昔', cn: '从前', rm: 'mukashi' }] },
+          { id: 'me', hira: 'め', kata: 'メ', romaji: 'me', origin: '均源于「女」：平假名比「ぬ」少个尾巴圈，片假名像刀疤交叉。口诀：美女(め)脸上有刀疤(メ)，读作 me（日语“眼睛”也读 me）。', words: [{ jp: 'め', kj: '目', cn: '眼睛', rm: 'me' }, { jp: 'あめ', kj: '雨', cn: '雨', rm: 'ame' }] },
+          { id: 'mo', hira: 'も', kata: 'モ', romaji: 'mo', origin: '均源于「毛」：平假名像「毛」反勾，片假名是「毛」去顶撇。口诀：毛(も/モ)茸茸的桃子，摸(mo)一摸。', words: [{ jp: 'もも', kj: '桃', cn: '桃子', rm: 'momo' }, { jp: 'もり', kj: '森', cn: '森林', rm: 'mori' }] }
+        ]
+      },
+      {
+        id: 'row_ya', category: 'seion', order: 8, name: '第8行 · や行', desc: '仅 3 个音 (ya, yu, yo)，也是拗音的核心辅字',
+        items: [
+          { id: 'ya', hira: 'や', kata: 'ヤ', romaji: 'ya', origin: '均源于「也」：片假名是「也」去掉底弯钩。口诀：今天也(や/ヤ)要加油鸭(ya)！', words: [{ jp: 'やま', kj: '山', cn: '山', rm: 'yama' }, { jp: 'やすみ', kj: '休み', cn: '休息 / 假期', rm: 'yasumi' }] },
+          { id: 'yu', hira: 'ゆ', kata: 'ユ', romaji: 'yu', origin: '平假名源于「由」（像一条热带鱼），片假名像数字 1 加底座。口诀：小鱼(ゆ)游(yu)在水池(ユ)里。', words: [{ jp: 'ゆき', kj: '雪', cn: '雪', rm: 'yuki' }, { jp: 'ゆめ', kj: '夢', cn: '梦想 / 梦', rm: 'yume' }] },
+          { id: 'yo', hira: 'よ', kata: 'ヨ', romaji: 'yo', origin: '均源于「与」：平假名像音符钥匙，片假名像倒过来的山（E反写）。口诀：与(よ)你一起切当归(ヨ)，哟(yo)！', words: [{ jp: 'よる', kj: '夜', cn: '夜晚', rm: 'yoru' }, { jp: 'よむ', kj: '読む', cn: '阅读', rm: 'yomu' }] }
+        ]
+      },
+      {
+        id: 'row_ra', category: 'seion', order: 9, name: '第9行 · ら行', desc: '日语罗马音写 r，实际舌尖轻弹上齿龈接近 l',
+        items: [
+          { id: 'ra', hira: 'ら', kata: 'ラ', romaji: 'ra', origin: '均源于「良」：平假名像数字 5 头顶一点，片假名像马桶盖。口诀：拉(ra)开马桶盖(ら/ラ)。', words: [{ jp: 'らいねん', kj: '来年', cn: '明年', rm: 'rainen' }, { jp: 'ラーメン', kj: '拉麺', cn: '拉面', rm: 'raamen' }] },
+          { id: 'ri', hira: 'り', kata: 'リ', romaji: 'ri', origin: '均源于「利」右边的立刀旁「刂」。口诀：利(り/リ)刀旁切梨(ri)子。', words: [{ jp: 'りんご', kj: '林檎', cn: '苹果', rm: 'ringo' }, { jp: 'りょこう', kj: '旅行', cn: '旅行', rm: 'ryokou' }] },
+          { id: 'ru', hira: 'る', kata: 'ル', romaji: 'ru', origin: '平假名源于「留」（像数字3底下打圈），片假名源于「流」底部「儿」。口诀：三(る)个儿(ル)子走大路(ru)。', words: [{ jp: 'るす', kj: '留守', cn: '不在家', rm: 'rusu' }, { jp: 'みる', kj: '見る', cn: '看', rm: 'miru' }] },
+          { id: 're', hira: 'れ', kata: 'レ', romaji: 're', origin: '均源于「礼」右半边：平假名末尾向外翘起，片假名就是一个竖提「レ」。口诀：行礼(れ)打勾(レ)累(re)瘫了。', words: [{ jp: 'れきし', kj: '歴史', cn: '历史', rm: 'rekishi' }, { jp: 'れいぞうこ', kj: '冷蔵庫', cn: '冰箱', rm: 'reizouko' }] },
+          { id: 'ro', hira: 'ろ', kata: 'ロ', romaji: 'ro', origin: '均源于「呂」：平假名像数字 3（比る少个圈），片假名是单「口」。口诀：三(ろ)张口(ロ)啰(ro)嗦不停。', words: [{ jp: 'ろく', kj: '六', cn: '数字六', rm: 'roku' }, { jp: 'いろ', kj: '色', cn: '颜色', rm: 'iro' }] }
+        ]
+      },
+      {
+        id: 'row_wa', category: 'seion', order: 10, name: '第10行 · わ行 + 拨音 ん', desc: '清音收官行：わ、を(作助词读 o)、拨音 ん',
+        items: [
+          { id: 'wa', hira: 'わ', kata: 'ワ', romaji: 'wa', origin: '平假名源于「和」（像大肚子孕妇），片假名像宝盖头少上面一点。口诀：宝盖少点(ワ)哇(wa)哇大哭抱肚子(わ)。', words: [{ jp: 'わたし', kj: '私', cn: '我', rm: 'watashi' }, { jp: 'わかもの', kj: '若者', cn: '年轻人', rm: 'wakamono' }] },
+          { id: 'wo', hira: 'を', kata: 'ヲ', romaji: 'wo', origin: '源于「遠」，现代日语仅作宾格助词，实际发音与「お(o)」完全相同。口诀：大(を)声喔(o)叫跳下水。', words: [{ jp: '本を読む', kj: 'ほんをよむ', cn: '读书(作宾语助词)', rm: 'hon wo yomu' }, { jp: '水を飲む', kj: 'みずをのむ', cn: '喝水(作宾语助词)', rm: 'mizu wo nomu' }] },
+          { id: 'n', hira: 'ん', kata: 'ン', romaji: 'n', origin: '拨音（鼻音韵尾）：平假名像英语字母 n，片假名由下往上提（点偏平，像人单眼眨眼）。口诀：嗯(n)！写个字母 n(ん) 点个头(ン)。', words: [{ jp: 'てんき', kj: '天気', cn: '天气', rm: 'tenki' }, { jp: 'パン', kj: 'Pan', cn: '面包', rm: 'pan' }] }
+        ]
+      },
+
+      // --- 浊音・半浊音 (Dakuon & Handakuon: Rows 11 to 15) ---
+      {
+        id: 'row_ga', category: 'dakuon', order: 11, name: '第11行 · が行 (浊音)', desc: 'か行右上角加两点 ゛，清音 k 浊化为 g',
+        items: [
+          { id: 'ga', hira: 'が', kata: 'ガ', romaji: 'ga', origin: 'か(ka) + 浊点 ゛ → が(ga)。声带振动即可。', words: [{ jp: 'がっこう', kj: '学校', cn: '学校', rm: 'gakkou' }, { jp: 'まんが', kj: '漫画', cn: '漫画', rm: 'manga' }] },
+          { id: 'gi', hira: 'ぎ', kata: 'ギ', romaji: 'gi', origin: 'き(ki) + 浊点 ゛ → ぎ(gi)。', words: [{ jp: 'ぎんこう', kj: '銀行', cn: '银行', rm: 'ginkou' }, { jp: 'かぎ', kj: '鍵', cn: '钥匙', rm: 'kagi' }] },
+          { id: 'gu', hira: 'ぐ', kata: 'グ', romaji: 'gu', origin: 'く(ku) + 浊点 ゛ → ぐ(gu)。', words: [{ jp: 'かぐ', kj: '家具', cn: '家具', rm: 'kagu' }, { jp: 'グループ', kj: 'Group', cn: '团队/小组', rm: 'guruupu' }] },
+          { id: 'ge', hira: 'げ', kata: 'ゲ', romaji: 'ge', origin: 'け(ke) + 浊点 ゛ → げ(ge)。', words: [{ jp: 'げんき', kj: '元気', cn: '有精神/健康', rm: 'genki' }, { jp: 'ゲーム', kj: 'Game', cn: '游戏', rm: 'geemu' }] },
+          { id: 'go', hira: 'ご', kata: 'ゴ', romaji: 'go', origin: 'こ(ko) + 浊点 ゛ → ご(go)。', words: [{ jp: 'ごはん', kj: 'ご飯', cn: '米饭 / 饭', rm: 'gohan' }, { jp: 'ごご', kj: '午後', cn: '下午', rm: 'gogo' }] }
+        ]
+      },
+      {
+        id: 'row_za', category: 'dakuon', order: 12, name: '第12行 · ざ行 (浊音)', desc: 'さ行加两点 ゛，s 浊化为 z（し→じ ji）',
+        items: [
+          { id: 'za', hira: 'ざ', kata: 'ザ', romaji: 'za', origin: 'さ(sa) + 浊点 ゛ → ざ(za)。', words: [{ jp: 'ざっし', kj: '雑誌', cn: '杂志', rm: 'zasshi' }, { jp: 'ざんねん', kj: '残念', cn: '遗憾', rm: 'zannen' }] },
+          { id: 'ji', hira: 'じ', kata: 'ジ', romaji: 'ji', origin: 'し(shi) + 浊点 ゛ → じ(ji)，高频重点音！', words: [{ jp: 'じかん', kj: '時間', cn: '时间', rm: 'jikan' }, { jp: 'じしょ', kj: '辞書', cn: '词典', rm: 'jisho' }] },
+          { id: 'zu', hira: 'ず', kata: 'ズ', romaji: 'zu', origin: 'す(su) + 浊点 ゛ → ず(zu)。', words: [{ jp: 'みず', kj: '水', cn: '水', rm: 'mizu' }, { jp: 'しずか', kj: '静か', cn: '安静', rm: 'shizuka' }] },
+          { id: 'ze', hira: 'ぜ', kata: 'ゼ', romaji: 'ze', origin: 'せ(se) + 浊点 ゛ → ぜ(ze)。', words: [{ jp: 'かぜ', kj: '風', cn: '风 / 感冒', rm: 'kaze' }, { jp: 'ぜんぶ', kj: '全部', cn: '全部', rm: 'zenbu' }] },
+          { id: 'zo', hira: 'ぞ', kata: 'ゾ', romaji: 'zo', origin: 'そ(so) + 浊点 ゛ → ぞ(zo)。', words: [{ jp: 'かぞく', kj: '家族', cn: '家人', rm: 'kazoku' }, { jp: 'ぞう', kj: '象', cn: '大象', rm: 'zou' }] }
+        ]
+      },
+      {
+        id: 'row_da', category: 'dakuon', order: 13, name: '第13行 · だ行 (浊音)', desc: 'た行加两点 ゛，t 浊化为 d（ぢ/づ与じ/ず同音）',
+        items: [
+          { id: 'da', hira: 'だ', kata: 'ダ', romaji: 'da', origin: 'た(ta) + 浊点 ゛ → だ(da)。', words: [{ jp: 'だいがく', kj: '大学', cn: '大学', rm: 'daigaku' }, { jp: 'だれ', kj: '誰', cn: '谁', rm: 'dare' }] },
+          { id: 'dji', hira: 'ぢ', kata: 'ヂ', romaji: 'ji', origin: 'ち(chi) + 浊点 ゛ → ぢ，现代发音同「じ(ji)」，仅在少数连浊词出现。', words: [{ jp: 'はなぢ', kj: '鼻血', cn: '鼻血', rm: 'hanaji' }, { jp: 'ちぢむ', kj: '縮む', cn: '缩小', rm: 'chijimu' }] },
+          { id: 'dzu', hira: 'づ', kata: 'ヅ', romaji: 'zu', origin: 'つ(tsu) + 浊点 ゛ → づ，现代发音同「ず(zu)」，输入法可打 du。', words: [{ jp: 'つづく', kj: '続く', cn: '继续', rm: 'tsuzuku' }, { jp: 'かたづける', kj: '片付ける', cn: '收拾整理', rm: 'katazukeru' }] },
+          { id: 'de', hira: 'で', kata: 'デ', romaji: 'de', origin: 'て(te) + 浊点 ゛ → で(de)。', words: [{ jp: 'でんしゃ', kj: '電車', cn: '电车', rm: 'densha' }, { jp: 'でんわ', kj: '電話', cn: '电话', rm: 'denwa' }] },
+          { id: 'do', hira: 'ど', kata: 'ド', romaji: 'do', origin: 'と(to) + 浊点 ゛ → ど(do)。', words: [{ jp: 'どこ', kj: '何処', cn: '哪里', rm: 'doko' }, { jp: 'ドア', kj: 'Door', cn: '门', rm: 'doa' }] }
+        ]
+      },
+      {
+        id: 'row_ba', category: 'dakuon', order: 14, name: '第14行 · ば行 (浊音)', desc: 'は行加两点 ゛，h 变成双唇浊音 b',
+        items: [
+          { id: 'ba', hira: 'ば', kata: 'バ', romaji: 'ba', origin: 'は(ha) + 浊点 ゛ → ば(ba)。', words: [{ jp: 'かばん', kj: '鞄', cn: '包包', rm: 'kaban' }, { jp: 'バス', kj: 'Bus', cn: '公交车', rm: 'basu' }] },
+          { id: 'bi', hira: 'び', kata: 'ビ', romaji: 'bi', origin: 'ひ(hi) + 浊点 ゛ → び(bi)。', words: [{ jp: 'びょういん', kj: '病院', cn: '医院', rm: 'byouin' }, { jp: 'テレビ', kj: 'TV', cn: '电视', rm: 'terebi' }] },
+          { id: 'bu', hira: 'ぶ', kata: 'ブ', romaji: 'bu', origin: 'ふ(fu) + 浊点 ゛ → ぶ(bu)。', words: [{ jp: 'ぶた', kj: '豚', cn: '小猪', rm: 'buta' }, { jp: 'ぶんか', kj: '文化', cn: '文化', rm: 'bunka' }] },
+          { id: 'be', hira: 'べ', kata: 'ベ', romaji: 'be', origin: 'へ(he) + 浊点 ゛ → べ(be)。', words: [{ jp: 'べんきょう', kj: '勉強', cn: '学习', rm: 'benkyou' }, { jp: 'ベッド', kj: 'Bed', cn: '床', rm: 'beddo' }] },
+          { id: 'bo', hira: 'ぼ', kata: 'ボ', romaji: 'bo', origin: 'ほ(ho) + 浊点 ゛ → ぼ(bo)。', words: [{ jp: 'ぼうし', kj: '帽子', cn: '帽子', rm: 'boushi' }, { jp: 'ぼく', kj: '僕', cn: '我(男生自称)', rm: 'boku' }] }
+        ]
+      },
+      {
+        id: 'row_pa', category: 'dakuon', order: 15, name: '第15行 · ぱ行 (半浊音)', desc: 'は行右上角加小圆圈 ゜，h 变成双唇爆破清音 p',
+        items: [
+          { id: 'pa', hira: 'ぱ', kata: 'パ', romaji: 'pa', origin: 'は(ha) + 半浊音圈 ゜ → ぱ(pa)。', words: [{ jp: 'パンダ', kj: 'Panda', cn: '熊猫', rm: 'panda' }, { jp: 'パーティー', kj: 'Party', cn: '派对', rm: 'paatii' }] },
+          { id: 'pi', hira: 'ぴ', kata: 'ピ', romaji: 'pi', origin: 'ひ(hi) + 半浊音圈 ゜ → ぴ(pi)。', words: [{ jp: 'ピアノ', kj: 'Piano', cn: '钢琴', rm: 'piano' }, { jp: 'ぴかぴか', kj: '閃々', cn: '闪闪发亮', rm: 'pikapika' }] },
+          { id: 'pu', hira: 'ぷ', kata: 'プ', romaji: 'pu', origin: 'ふ(fu) + 半浊音圈 ゜ → ぷ(pu)。', words: [{ jp: 'プレゼント', kj: 'Present', cn: '礼物', rm: 'purezento' }, { jp: 'てんぷら', kj: '天婦羅', cn: '天妇罗', rm: 'tenpura' }] },
+          { id: 'pe', hira: 'ぺ', kata: 'ペ', romaji: 'pe', origin: 'へ(he) + 半浊音圈 ゜ → ぺ(pe)。', words: [{ jp: 'ペン', kj: 'Pen', cn: '钢笔/笔', rm: 'pen' }, { jp: 'ペット', kj: 'Pet', cn: '宠物', rm: 'petto' }] },
+          { id: 'po', hira: 'ぽ', kata: 'ポ', romaji: 'po', origin: 'ほ(ho) + 半浊音圈 ゜ → ぽ(po)。', words: [{ jp: 'さんぽ', kj: '散歩', cn: '散步', rm: 'sanpo' }, { jp: 'ポケット', kj: 'Pocket', cn: '口袋', rm: 'poketto' }] }
+        ]
+      },
+
+      // --- 拗音 (Youon: Rows 16 to 26) ---
+      {
+        id: 'row_kya', category: 'youon', order: 16, name: '拗音 · きゃ行', desc: 'き(ki) + 小号 ゃ/ゅ/ょ 快速连读',
+        items: [
+          { id: 'kya', hira: 'きゃ', kata: 'キャ', romaji: 'kya', origin: 'き + 小ゃ 连读为 kya。注意右下角假名要写小一号。', words: [{ jp: 'きゃく', kj: '客', cn: '客人', rm: 'kyaku' }] },
+          { id: 'kyu', hira: 'きゅ', kata: 'キュ', romaji: 'kyu', origin: 'き + 小ゅ 连读为 kyu。', words: [{ jp: 'きゅう', kj: '九', cn: '数字九', rm: 'kyuu' }] },
+          { id: 'kyo', hira: 'きょ', kata: 'キョ', romaji: 'kyo', origin: 'き + 小ょ 连读为 kyo。', words: [{ jp: 'きょう', kj: '今日', cn: '今天', rm: 'kyou' }, { jp: 'きょうと', kj: '京都', cn: '京都', rm: 'kyouto' }] }
+        ]
+      },
+      {
+        id: 'row_sha', category: 'youon', order: 17, name: '拗音 · しゃ行', desc: 'し(shi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'sha', hira: 'しゃ', kata: 'シャ', romaji: 'sha', origin: 'し + 小ゃ → sha。日常极高频！', words: [{ jp: 'しゃしん', kj: '写真', cn: '照片', rm: 'shashin' }, { jp: 'かいしゃ', kj: '会社', cn: '公司', rm: 'kaisha' }] },
+          { id: 'shu', hira: 'しゅ', kata: 'シュ', romaji: 'shu', origin: 'し + 小ゅ → shu。', words: [{ jp: 'しゅみ', kj: '趣味', cn: '兴趣爱好', rm: 'shumi' }] },
+          { id: 'sho', hira: 'しょ', kata: 'ショ', romaji: 'sho', origin: 'し + 小ょ → sho。', words: [{ jp: 'しょくじ', kj: '食事', cn: '用餐', rm: 'shokuji' }, { jp: 'としょかん', kj: '図書館', cn: '图书馆', rm: 'toshokan' }] }
+        ]
+      },
+      {
+        id: 'row_cha', category: 'youon', order: 18, name: '拗音 · ちゃ行', desc: 'ち(chi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'cha', hira: 'ちゃ', kata: 'チャ', romaji: 'cha', origin: 'ち + 小ゃ → cha。', words: [{ jp: 'おちゃ', kj: 'お茶', cn: '茶', rm: 'ocha' }, { jp: 'ちゃいろ', kj: '茶色', cn: '茶色/棕色', rm: 'chairo' }] },
+          { id: 'chu', hira: 'ちゅ', kata: 'チュ', romaji: 'chu', origin: 'ち + 小ゅ → chu。', words: [{ jp: 'ちゅうごく', kj: '中国', cn: '中国', rm: 'chuugoku' }, { jp: 'ちゅうい', kj: '注意', cn: '注意', rm: 'chuui' }] },
+          { id: 'cho', hira: 'ちょ', kata: 'チョ', romaji: 'cho', origin: 'ち + 小ょ → cho。', words: [{ jp: 'ちょっと', kj: '一寸', cn: '稍微/一下', rm: 'chotto' }, { jp: 'ちょうちょ', kj: '蝶々', cn: '蝴蝶', rm: 'choucho' }] }
+        ]
+      },
+      {
+        id: 'row_nya', category: 'youon', order: 19, name: '拗音 · にゃ行', desc: 'に(ni) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'nya', hira: 'にゃ', kata: 'ニャ', romaji: 'nya', origin: 'に + 小ゃ → nya（猫咪叫声）。', words: [{ jp: 'にゃんこ', kj: 'ニャンコ', cn: '猫咪(昵称)', rm: 'nyanko' }] },
+          { id: 'nyu', hira: 'にゅ', kata: 'ニュ', romaji: 'nyu', origin: 'に + 小ゅ → nyu。', words: [{ jp: 'ぎゅうにゅう', kj: '牛乳', cn: '牛奶', rm: 'gyuunyuu' }, { jp: 'ニュース', kj: 'News', cn: '新闻', rm: 'nyuusu' }] },
+          { id: 'nyo', hira: 'にょ', kata: 'ニョ', romaji: 'nyo', origin: 'に + 小ょ → nyo。', words: [{ jp: 'にょうぼう', kj: '女房', cn: '妻子', rm: 'nyoubou' }] }
+        ]
+      },
+      {
+        id: 'row_hya', category: 'youon', order: 20, name: '拗音 · ひゃ行', desc: 'ひ(hi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'hya', hira: 'ひゃ', kata: 'ヒャ', romaji: 'hya', origin: 'ひ + 小ゃ → hya。', words: [{ jp: 'ひゃく', kj: '百', cn: '一百', rm: 'hyaku' }] },
+          { id: 'hyu', hira: 'ひゅ', kata: 'ヒュ', romaji: 'hyu', origin: 'ひ + 小ゅ → hyu。', words: [{ jp: 'ヒューマン', kj: 'Human', cn: '人类', rm: 'hyuuman' }] },
+          { id: 'hyo', hira: 'ひょ', kata: 'ヒョ', romaji: 'hyo', origin: 'ひ + 小ょ → hyo。', words: [{ jp: 'ひょうげん', kj: '表現', cn: '表达/表现', rm: 'hyougen' }] }
+        ]
+      },
+      {
+        id: 'row_mya', category: 'youon', order: 21, name: '拗音 · みゃ行', desc: 'み(mi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'mya', hira: 'みゃ', kata: 'ミャ', romaji: 'mya', origin: 'み + 小ゃ → mya。', words: [{ jp: 'みゃく', kj: '脈', cn: '脉搏', rm: 'myaku' }] },
+          { id: 'myu', hira: 'みゅ', kata: 'ミュ', romaji: 'myu', origin: 'み + 小ゅ → myu。', words: [{ jp: 'ミュージック', kj: 'Music', cn: '音乐', rm: 'myuujikku' }] },
+          { id: 'myo', hira: 'みょ', kata: 'ミョ', romaji: 'myo', origin: 'み + 小ょ → myo。', words: [{ jp: 'みょうじ', kj: '名字', cn: '姓氏', rm: 'myouji' }] }
+        ]
+      },
+      {
+        id: 'row_rya', category: 'youon', order: 22, name: '拗音 · りゃ行', desc: 'り(ri) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'rya', hira: 'りゃ', kata: 'リャ', romaji: 'rya', origin: 'り + 小ゃ → rya。', words: [{ jp: 'りゃくご', kj: '略語', cn: '缩略语', rm: 'ryakugo' }] },
+          { id: 'ryu', hira: 'りゅ', kata: 'リュ', romaji: 'ryu', origin: 'り + 小ゅ → ryu。', words: [{ jp: 'りゅうがく', kj: '留学', cn: '留学', rm: 'ryuugaku' }] },
+          { id: 'ryo', hira: 'りょ', kata: 'リョ', romaji: 'ryo', origin: 'り + 小ょ → ryo。', words: [{ jp: 'りょこう', kj: '旅行', cn: '旅行', rm: 'ryokou' }, { jp: 'りょうり', kj: '料理', cn: '菜肴/料理', rm: 'ryouri' }] }
+        ]
+      },
+      {
+        id: 'row_gya', category: 'youon', order: 23, name: '拗音 · ぎゃ行 (浊拗音)', desc: 'ぎ(gi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'gya', hira: 'ぎゃ', kata: 'ギャ', romaji: 'gya', origin: 'ぎ + 小ゃ → gya。', words: [{ jp: 'ぎゃく', kj: '逆', cn: '相反/逆转', rm: 'gyaku' }] },
+          { id: 'gyu', hira: 'ぎゅ', kata: 'ギュ', romaji: 'gyu', origin: 'ぎ + 小ゅ → gyu。', words: [{ jp: 'ぎゅうにく', kj: '牛肉', cn: '牛肉', rm: 'gyuuniku' }] },
+          { id: 'gyo', hira: 'ぎょ', kata: 'ギョ', romaji: 'gyo', origin: 'ぎ + 小ょ → gyo。', words: [{ jp: 'ぎょうざ', kj: '餃子', cn: '饺子', rm: 'gyouza' }, { jp: 'きんぎょ', kj: '金魚', cn: '金鱼', rm: 'kingyo' }] }
+        ]
+      },
+      {
+        id: 'row_ja', category: 'youon', order: 24, name: '拗音 · じゃ行 (浊拗音)', desc: 'じ(ji) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'ja', hira: 'じゃ', kata: 'ジャ', romaji: 'ja', origin: 'じ + 小ゃ → ja。', words: [{ jp: 'じゃあね', kj: 'じゃあね', cn: '回见/拜拜', rm: 'jaane' }, { jp: 'じゃがいも', kj: '馬鈴薯', cn: '土豆', rm: 'jagaimo' }] },
+          { id: 'ju', hira: 'じゅ', kata: 'ジュ', romaji: 'ju', origin: 'じ + 小ゅ → ju。', words: [{ jp: 'じゅう', kj: '十', cn: '数字十', rm: 'juu' }, { jp: 'ジュース', kj: 'Juice', cn: '果汁', rm: 'juusu' }] },
+          { id: 'jo', hira: 'じょ', kata: 'ジョ', romaji: 'jo', origin: 'じ + 小ょ → jo。', words: [{ jp: 'じょうず', kj: '上手', cn: '擅长/拿手', rm: 'jouzu' }] }
+        ]
+      },
+      {
+        id: 'row_bya', category: 'youon', order: 25, name: '拗音 · びゃ行 (浊拗音)', desc: 'び(bi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'bya', hira: 'びゃ', kata: 'ビャ', romaji: 'bya', origin: 'び + 小ゃ → bya。', words: [{ jp: 'さんびゃく', kj: '三百', cn: '三百', rm: 'sanbyaku' }] },
+          { id: 'byu', hira: 'びゅ', kata: 'ビュ', romaji: 'byu', origin: 'び + 小ゅ → byu。', words: [{ jp: 'デビュー', kj: 'Debut', cn: '出道/首秀', rm: 'debyuu' }] },
+          { id: 'byo', hira: 'びょ', kata: 'ビョ', romaji: 'byo', origin: 'び + 小ょ → byo。', words: [{ jp: 'びょういん', kj: '病院', cn: '医院', rm: 'byouin' }] }
+        ]
+      },
+      {
+        id: 'row_pya', category: 'youon', order: 26, name: '拗音 · ぴゃ行 (半浊拗音)', desc: 'ぴ(pi) + 小号 ゃ/ゅ/ょ',
+        items: [
+          { id: 'pya', hira: 'ぴゃ', kata: 'ピャ', romaji: 'pya', origin: 'ぴ + 小ゃ → pya。', words: [{ jp: 'ろっぴゃく', kj: '六百', cn: '六百', rm: 'roppyaku' }] },
+          { id: 'pyu', hira: 'ぴゅ', kata: 'ピュ', romaji: 'pyu', origin: 'ぴ + 小ゅ → pyu。', words: [{ jp: 'コンピュータ', kj: 'Computer', cn: '电脑', rm: 'konpyuuta' }] },
+          { id: 'pyo', hira: 'ぴょ', kata: 'ピョ', romaji: 'pyo', origin: 'ぴ + 小ょ → pyo。', words: [{ jp: 'はっぴょう', kj: '発表', cn: '发表/发布', rm: 'happyou' }] }
+        ]
+      }
+    ];
+
+    // Flatten map for instant lookup
+    const KANA_MAP = {};
+    const ALL_KANA_LIST = [];
+    KANA_ROWS.forEach(row => {
+      row.items.forEach(item => {
+        item.rowId = row.id;
+        item.rowName = row.name;
+        item.category = row.category;
+        KANA_MAP[item.id] = item;
+        ALL_KANA_LIST.push(item);
+      });
+    });
+
+    // 7-Day Master Plan Data
+    const SEVEN_DAY_PLAN = [
+      {
+        day: 1,
+        title: 'Day 1：元音之本与前3行清音（15音）',
+        rows: ['row_a', 'row_ka', 'row_sa'],
+        badge: 'あ・か・さ行 (15音)',
+        tip: '先攻克あ行5个元音，随后用 k、s 辅音拼读。重点留意「し(shi)」读“吸”，并用「第1~3行范围抽查」达到90%正确率。'
+      },
+      {
+        day: 2,
+        title: 'Day 2：高频清音中坚（15音）+ 滚动复习',
+        rows: ['row_ta', 'row_na', 'row_ha'],
+        badge: 'た・な・は行 (15音)',
+        tip: '重点留意三个特殊读音：「ち(chi)」、「つ(tsu)」、「ふ(fu)」。学完后勾选前6行(30音)做一轮综合抽查。'
+      },
+      {
+        day: 3,
+        title: 'Day 3：46个基础清音全通关（16音）',
+        rows: ['row_ma', 'row_ya', 'row_ra', 'row_wa'],
+        badge: 'ま・や・ら・わ行 + ん (16音)',
+        tip: '清音收官！注意「ら行」舌尖轻弹像 l，「を」只做助词读 o，「ん」是鼻音韵尾。'
+      },
+      {
+        day: 4,
+        title: 'Day 4：清浊联动记忆法（25个浊音/半浊音）',
+        rows: ['row_ga', 'row_za', 'row_da', 'row_ba', 'row_pa'],
+        badge: 'が・ざ・だ・ば・ぱ行 (25音)',
+        tip: '无需死记字形！只需记住清音变浊音规律：k→g, s→z, t→d, h→b(两点)/p(圆圈)，以及「じ=ぢ(ji)」、「ず=づ(zu)」。'
+      },
+      {
+        day: 5,
+        title: 'Day 5：片假名破壁 & 易混假名专项辨析',
+        rows: ['row_a', 'row_ka', 'row_sa', 'row_ta', 'row_na', 'row_ha', 'row_ma', 'row_ya', 'row_ra', 'row_wa'],
+        badge: '片假名专项 + 双胞胎辨析',
+        tip: '切换到顶部「片假名」视图，结合本页下方「易混双胞胎实验室」攻克 シ/ツ、ソ/ン、ア/マ 等形近字。'
+      },
+      {
+        day: 6,
+        title: 'Day 6：拗音滑动拼读规律与高频词实战（33音）',
+        rows: ['row_kya', 'row_sha', 'row_cha', 'row_nya', 'row_hya', 'row_mya', 'row_rya', 'row_gya', 'row_ja', 'row_bya', 'row_pya'],
+        badge: 'きゃ〜ぴゃ行 (33音)',
+        tip: '拗音全是「い段假名 + 小号ゃ/ゅ/ょ」拼读而成，结合单词（如 しゃしん 照片、りょこう 旅行）一并拿下。'
+      },
+      {
+        day: 7,
+        title: 'Day 7：错题集清零 & 全表乱序终极通关',
+        rows: KANA_ROWS.map(r => r.id),
+        badge: '全范围 + 错题本清零',
+        tip: '先去「错题/收藏」把前6天积累的薄弱假名全部清零，再进行一轮全表混合盲测，正式毕业！'
+      }
+    ];
+
+    // Confusing Kana Pairs Data
+    const CONFUSING_PAIRS = [
+      {
+        title: '片假名头号杀手：シ (shi) vs ツ (tsu)',
+        ids: ['shi', 'tsu'],
+        desc: '【シ(shi)】源于三点水，左边两点偏平，长划从左下往右上提；【ツ(tsu)】源于川，上边两点偏竖，长撇从右上往左下落。'
+      },
+      {
+        title: '片假名次号杀手：ソ (so) vs ン (n)',
+        ids: ['so', 'n'],
+        desc: '【ソ(so)】源于「曽」头顶八字，先竖点再从上往下撇；【ン(n)】先横点再从左下往右上提（像单眼眨眼）。'
+      },
+      {
+        title: '平假名卷尾三姐妹：わ (wa) vs れ (re) vs ね (ne)',
+        ids: ['wa', 're', 'ne'],
+        desc: '左边都是一竖加折：【わ(wa)】大肚子往里收；【れ(re)】末尾向外翘起；【ね(ne)】末尾打个可爱的蝴蝶结圈。'
+      },
+      {
+        title: '平假名打圈双胞胎：ぬ (nu) vs め (me)',
+        ids: ['nu', 'me'],
+        desc: '都源于汉字草书：【め(me)】源于「女」，右下直接收笔无圈；【ぬ(nu)】源于「奴」，右下多绕一个小猪尾巴圈。'
+      },
+      {
+        title: '平假名数字3兄弟：る (ru) vs ろ (ro)',
+        ids: ['ru', 'ro'],
+        desc: '【る(ru)】源于「留」，底部多绕一个小圈留住；【ろ(ro)】源于「呂」，就是干净的数字 3，底部不打圈。'
+      },
+      {
+        title: '片假名折角双胞胎：ア (a) vs マ (ma)',
+        ids: ['a', 'ma'],
+        desc: '【ア(a)】下面是竖撇，像「阿」的耳朵；【マ(ma)】下面是短斜点，像「万」字上半截。'
+      },
+      {
+        title: '片假名宝盖兄弟：ウ (u) vs ワ (wa) vs ク (ku)',
+        ids: ['u', 'wa', 'ku'],
+        desc: '【ウ(u)】头顶有一短竖；【ワ(wa)】头顶没有短竖；【ク(ku)】左边是一短撇（源于「久」）。'
+      },
+      {
+        title: '平假名左右双胞胎：さ (sa) vs ち (chi)',
+        ids: ['sa', 'chi'],
+        desc: '【さ(sa)】肚皮朝左开口（源于左）；【ち(chi)】肚皮朝右鼓起像数字 5（源于知）。'
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE & STORAGE
+    // =========================================================================
+    const state = {
+      mainTab: 'chart',          // 'chart' | 'quiz' | 'review' | 'plan'
+      scriptMode: 'hiragana',    // 'hiragana' | 'katakana' | 'both'
+      category: 'seion',         // 'seion' | 'dakuon' | 'youon'
+      showWord: true,
+      onlyMarked: false,
+      speechRate: 0.9,
+      voiceSource: 'cloud',      // 'cloud' (loud online TTS + fallback) | 'local' (Web Speech API)
+      activeDay: 1,
+      completedDays: {},         // { 1: true, ... }
+      selectedRows: {            // Default first 3 rows (15 kanas) selected per user's example!
+        'row_a': true,
+        'row_ka': true,
+        'row_sa': true
+      },
+      favorites: {},             // { kanaId: true }
+      mistakes: {},              // { kanaId: { count: 2, streak: 0, lastWrong: timestamp } }
+      // Quiz State
+      quizSource: 'rows',        // 'rows' | 'mistakes' | 'favorites' | 'custom'
+      quizCustomIds: [],
+      quizType: 'mixed',         // 'mixed' | 'kana2romaji' | 'hira2kata' | 'audio2kana' | 'typing' | 'flashcard'
+      quizQueue: [],
+      quizIndex: 0,
+      quizCorrect: 0,
+      quizWrong: 0,
+      quizAnswered: false,
+      flashcardFlipped: false,
+      // Modal State
+      modalKanaId: 'a',
+      padGhostMode: 'hira'
+    };
+
+    function loadPersistedState() {
+      try {
+        const saved = localStorage.getItem('gojuon_seven_day_state_v1');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.favorites) state.favorites = parsed.favorites;
+          if (parsed.mistakes) state.mistakes = parsed.mistakes;
+          if (parsed.completedDays) state.completedDays = parsed.completedDays;
+          if (parsed.activeDay) state.activeDay = parsed.activeDay;
+          if (parsed.selectedRows && Object.keys(parsed.selectedRows).length > 0) {
+            state.selectedRows = parsed.selectedRows;
+          }
+          if (parsed.scriptMode) state.scriptMode = parsed.scriptMode;
+        }
+      } catch (e) {
+        // Ignore storage errors in sandboxed frames
+      }
+    }
+
+    function savePersistedState() {
+      try {
+        localStorage.setItem('gojuon_seven_day_state_v1', JSON.stringify({
+          favorites: state.favorites,
+          mistakes: state.mistakes,
+          completedDays: state.completedDays,
+          activeDay: state.activeDay,
+          selectedRows: state.selectedRows,
+          scriptMode: state.scriptMode
+        }));
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 3. JAPANESE SPEECH & AUDIO SYNTHESIS ENGINE (LOUD DUAL-ENGINE)
+    // =========================================================================
+    let jpVoice = null;
+    let audioCtx = null;
+    let currentCloudAudio = null;
+
+    function initSpeechVoices() {
+      if (!('speechSynthesis' in window)) return;
+      const pickVoice = () => {
+        const voices = window.speechSynthesis.getVoices() || [];
+        jpVoice = voices.find(v => v.lang === 'ja-JP' && (v.name.includes('Google') || v.name.includes('Kyoko') || v.name.includes('Otoya') || v.name.includes('Haruka') || v.name.includes('Nanami')))
+               || voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ja'))
+               || null;
+      };
+      pickVoice();
+      window.speechSynthesis.onvoiceschanged = pickVoice;
+    }
+
+    function setVoiceSource(src) {
+      state.voiceSource = src;
+      const cloudBtn = document.getElementById('voiceSrc-cloud');
+      const localBtn = document.getElementById('voiceSrc-local');
+      if (cloudBtn && localBtn) {
+        if (src === 'cloud') {
+          cloudBtn.className = 'px-2 py-0.5 rounded font-medium bg-matcha-600 text-white';
+          localBtn.className = 'px-2 py-0.5 rounded font-medium text-sumi-700 hover:bg-washi-200';
+          showToast('已切换为：高响度在线日语语音（若网络受限将自动使用增强版系统语音）');
+        } else {
+          localBtn.className = 'px-2 py-0.5 rounded font-medium bg-matcha-600 text-white';
+          cloudBtn.className = 'px-2 py-0.5 rounded font-medium text-sumi-700 hover:bg-washi-200';
+          showToast('已切换为：浏览器内置系统语音（已开启最大音量增强）');
+        }
+      }
+    }
+
+    function speakWithWebSpeechBoosted(text) {
+      if (!('speechSynthesis' in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        // Single kana characters often get clipped or spoken softly by OS TTS;
+        // appending a Japanese full stop '。' forces full vowel projection at max volume.
+        const spokenText = text.length <= 2 ? (text + '。') : text;
+        const utter = new SpeechSynthesisUtterance(spokenText);
+        utter.lang = 'ja-JP';
+        if (jpVoice) utter.voice = jpVoice;
+        utter.volume = 1.0; // Maximum volume
+        utter.rate = state.speechRate;
+        utter.pitch = 1.02;
+        window.speechSynthesis.speak(utter);
+      } catch (e) {}
+    }
+
+    function speakJapanese(text, cardDomId = null) {
+      if (cardDomId) {
+        const el = document.getElementById(cardDomId);
+        if (el) {
+          el.classList.add('speaking-glow');
+          setTimeout(() => el.classList.remove('speaking-glow'), 850);
+        }
+      }
+
+      const statusEl = document.getElementById('audioStatusNotice');
+      if (statusEl) {
+        statusEl.textContent = `🔊 正在大声朗读: 「${text}」`;
+      }
+
+      // Stop any ongoing audio so nothing overlaps or ducks volume
+      if (currentCloudAudio) {
+        try {
+          currentCloudAudio.pause();
+          currentCloudAudio.currentTime = 0;
+        } catch (e) {}
+        currentCloudAudio = null;
+      }
+
+      if (state.voiceSource === 'cloud') {
+        try {
+          const encoded = encodeURIComponent(text);
+          // Youdao Japanese TTS stream provides loud, clear studio-level pronunciation
+          const url = `https://dict.youdao.com/dictvoice?le=jap&type=3&audio=${encoded}`;
+          const audio = new Audio(url);
+          audio.volume = 1.0;
+          audio.playbackRate = state.speechRate >= 0.85 ? 1.0 : 0.75;
+          currentCloudAudio = audio;
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              speakWithWebSpeechBoosted(text);
+            });
+          }
+          return;
+        } catch (e) {
+          speakWithWebSpeechBoosted(text);
+          return;
+        }
+      }
+
+      speakWithWebSpeechBoosted(text);
+    }
+
+    function setSpeechRate(rate) {
+      state.speechRate = rate;
+      const normalBtn = document.getElementById('speedBtn-normal');
+      const slowBtn = document.getElementById('speedBtn-slow');
+      if (rate > 0.75) {
+        normalBtn.className = 'px-2 py-0.5 rounded font-medium bg-matcha-600 text-white';
+        slowBtn.className = 'px-2 py-0.5 rounded font-medium text-sumi-700 hover:bg-washi-200';
+        showToast('语音已切换为：标准语速');
+      } else {
+        slowBtn.className = 'px-2 py-0.5 rounded font-medium bg-matcha-600 text-white';
+        normalBtn.className = 'px-2 py-0.5 rounded font-medium text-sumi-700 hover:bg-washi-200';
+        showToast('语音已切换为：慢速清晰跟读');
+      }
+    }
+
+    // =========================================================================
+    // 4. TOP NAVIGATION & SCRIPT MODE CONTROLS
+    // =========================================================================
+    function setScriptMode(mode) {
+      state.scriptMode = mode;
+      savePersistedState();
+      ['hiragana', 'katakana', 'both'].forEach(m => {
+        const btn = document.getElementById(`scriptBtn-${m}`);
+        if (!btn) return;
+        if (m === mode) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-white text-matcha-700 shadow-sm';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:text-sumi-900';
+        }
+      });
+      renderGojuonChart();
+      if (state.mainTab === 'review') renderReviewHub();
+    }
+
+    function switchMainTab(tab) {
+      state.mainTab = tab;
+      ['chart', 'quiz', 'review', 'plan'].forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`navBtn-${t}`);
+        if (view) view.classList.toggle('hidden', t !== tab);
+        if (btn) {
+          if (t === tab) {
+            btn.className = 'flex-1 lg:flex-initial px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-matcha-600 text-white shadow-sm flex items-center justify-center gap-1.5';
+          } else {
+            btn.className = 'flex-1 lg:flex-initial px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all text-sumi-700 hover:bg-washi-100 flex items-center justify-center gap-1.5';
+          }
+        }
+      });
+
+      if (tab === 'chart') {
+        renderGojuonChart();
+      } else if (tab === 'quiz') {
+        renderQuizRowCheckboxes();
+        if (state.quizQueue.length === 0) {
+          startNewQuizSession();
+        } else {
+          renderQuizArena();
+        }
+      } else if (tab === 'review') {
+        renderReviewHub();
+      } else if (tab === 'plan') {
+        renderPlanAndConfusingView();
+      }
+      updateBadgesAndBanner();
+    }
+
+    function setCategory(cat) {
+      state.category = cat;
+      ['seion', 'dakuon', 'youon'].forEach(c => {
+        const btn = document.getElementById(`catBtn-${c}`);
+        if (!btn) return;
+        if (c === cat) {
+          btn.className = 'px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-matcha-600 text-white shadow-sm';
+        } else {
+          btn.className = 'px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-washi-50 text-sumi-700 hover:bg-washi-100';
+        }
+      });
+      renderGojuonChart();
+    }
+
+    function toggleCardOption(opt, checked) {
+      state[opt] = checked;
+      renderGojuonChart();
+    }
+
+    function getSelectedRowKanas() {
+      const list = [];
+      KANA_ROWS.forEach(row => {
+        if (state.selectedRows[row.id]) {
+          row.items.forEach(item => list.push(item));
+        }
+      });
+      return list;
+    }
+
+    function updateBadgesAndBanner() {
+      const selectedKanas = getSelectedRowKanas();
+      const count = selectedKanas.length;
+      const navRange = document.getElementById('navBadge-range');
+      const quickCount = document.getElementById('quickSelectedCount');
+      if (navRange) navRange.textContent = `${count}音`;
+      if (quickCount) quickCount.textContent = count;
+
+      const mistakeKeys = Object.keys(state.mistakes);
+      const favKeys = Object.keys(state.favorites);
+      const totalReview = new Set([...mistakeKeys, ...favKeys]).size;
+      const navReview = document.getElementById('navBadge-review');
+      if (navReview) navReview.textContent = totalReview;
+
+      const qMistake = document.getElementById('quizMistakeCount');
+      const qFav = document.getElementById('quizFavCount');
+      if (qMistake) qMistake.textContent = mistakeKeys.length;
+      if (qFav) qFav.textContent = favKeys.length;
+
+      // Update Day Banner
+      const dayObj = SEVEN_DAY_PLAN.find(d => d.day === state.activeDay) || SEVEN_DAY_PLAN[0];
+      const dayNumEl = document.getElementById('bannerDayNum');
+      const dayTitleEl = document.getElementById('bannerDayTitle');
+      const dayDescEl = document.getElementById('bannerDayDesc');
+      if (dayNumEl) dayNumEl.textContent = dayObj.day;
+      if (dayTitleEl) dayTitleEl.textContent = dayObj.title;
+      if (dayDescEl) dayDescEl.textContent = dayObj.tip;
+    }
+
+    // =========================================================================
+    // 5. GOJUON CHART RENDERING & INTERACTIONS
+    // =========================================================================
+    function renderGojuonChart() {
+      const container = document.getElementById('kanaGridContainer');
+      if (!container) return;
+
+      const rows = KANA_ROWS.filter(r => r.category === state.category);
+      const colsClass = state.category === 'youon' ? 'grid-cols-3' : 'grid-cols-5';
+
+      container.innerHTML = rows.map(row => {
+        const isRowChecked = !!state.selectedRows[row.id];
+        const cardsHtml = row.items.map(item => {
+          const isFav = !!state.favorites[item.id];
+          const mistakeEntry = state.mistakes[item.id];
+          const isMistake = !!mistakeEntry;
+          const dimCard = state.onlyMarked && !isFav && !isMistake;
+
+          let mainChar = item.hira;
+          let subChar = item.kata;
+          if (state.scriptMode === 'katakana') {
+            mainChar = item.kata;
+            subChar = item.hira;
+          }
+
+          const firstWord = item.words && item.words[0] ? item.words[0] : null;
+
+          return `
+            <div id="kanaCard-${item.id}"
+                 onclick="handleKanaCardClick('${item.id}')"
+                 class="card-transition relative group rounded-2xl border ${
+                   isMistake ? 'border-sakura-500/70 bg-sakura-50/40' :
+                   isFav ? 'border-amberjp-500/70 bg-amberjp-50/40' :
+                   'border-washi-200 bg-white hover:border-matcha-500'
+                 } p-2.5 sm:p-3 shadow-xs cursor-pointer select-none flex flex-col justify-between ${dimCard ? 'opacity-25' : ''}">
+
+              <!-- Top Row: Romaji + Favorite Star -->
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] sm:text-xs font-mono font-semibold text-matcha-700 bg-matcha-50 px-1.5 py-0.5 rounded">${item.romaji}</span>
+                <div class="flex items-center gap-1">
+                  ${isMistake ? `<span class="text-[10px] px-1.5 py-0.2 rounded bg-sakura-100 text-sakura-600 font-bold" title="错题本中">错${mistakeEntry.count}</span>` : ''}
+                  <button onclick="event.stopPropagation(); toggleFavorite('${item.id}')"
+                          title="${isFav ? '取消收藏' : '加入收藏夹'}"
+                          class="w-6 h-6 rounded-full flex items-center justify-center text-sm transition-colors ${isFav ? 'text-amberjp-500 bg-amberjp-50' : 'text-sumi-300 hover:text-amberjp-500 hover:bg-washi-100'}">
+                    ${isFav ? '★' : '☆'}
+                  </button>
+                </div>
+              </div>
+
+              <!-- Center Kana Display -->
+              <div class="my-1.5 sm:my-2 text-center">
+                ${
+                  state.scriptMode === 'both'
+                    ? `<div class="flex items-baseline justify-center gap-1.5">
+                         <span class="kana-font text-2xl sm:text-3xl font-bold text-sumi-900">${item.hira}</span>
+                         <span class="kana-font text-lg sm:text-xl font-semibold text-matcha-600">${item.kata}</span>
+                       </div>`
+                    : `<div class="kana-font text-2xl sm:text-3xl font-bold text-sumi-900">${mainChar}</div>
+                       <div class="kana-font text-[11px] text-sumi-500 mt-0.5">对照: ${subChar}</div>`
+                }
+              </div>
+
+              <!-- Bottom Bar: Word Preview & Detail Trigger -->
+              <div class="pt-1.5 border-t border-washi-100 flex items-center justify-between gap-1 text-[11px]">
+                ${
+                  state.showWord && firstWord
+                    ? `<span class="text-sumi-700 truncate" title="${firstWord.jp} (${firstWord.cn})">${firstWord.jp}·${firstWord.cn.split('/')[0]}</span>`
+                    : `<span class="text-sumi-500">点击发音</span>`
+                }
+                <button onclick="event.stopPropagation(); openKanaModal('${item.id}')"
+                        class="shrink-0 px-1.5 py-0.5 rounded bg-washi-100 hover:bg-matcha-600 hover:text-white text-sumi-700 font-medium transition-colors">
+                  词/忆
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="bg-white/70 rounded-2xl border ${isRowChecked ? 'border-matcha-500/60 bg-matcha-50/20' : 'border-washi-200'} p-3 sm:p-4 transition-all">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+              <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" ${isRowChecked ? 'checked' : ''}
+                       onchange="toggleRowSelection('${row.id}', this.checked)"
+                       class="w-4 h-4 rounded text-matcha-600 focus:ring-0">
+                <span class="text-xs sm:text-sm font-bold text-sumi-900">${row.name}</span>
+                <span class="text-xs text-sumi-500 hidden sm:inline">— ${row.desc}</span>
+              </label>
+              <div class="flex items-center gap-2">
+                <button onclick="playWholeRow('${row.id}')" class="text-xs text-matcha-700 hover:text-matcha-800 font-medium px-2 py-1 rounded-lg bg-matcha-50 hover:bg-matcha-100 transition-colors">
+                  🔊 整行连读
+                </button>
+                <button onclick="quizSingleRow('${row.id}')" class="text-xs text-sumi-700 hover:text-sumi-900 font-medium px-2 py-1 rounded-lg bg-washi-100 hover:bg-washi-200 transition-colors">
+                  抽查本行
+                </button>
+              </div>
+            </div>
+            <div class="grid ${colsClass} gap-2 sm:gap-3">
+              ${cardsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleKanaCardClick(kanaId) {
+      const item = KANA_MAP[kanaId];
+      if (!item) return;
+      speakJapanese(item.hira, `kanaCard-${kanaId}`);
+    }
+
+    function playWholeRow(rowId) {
+      const row = KANA_ROWS.find(r => r.id === rowId);
+      if (!row) return;
+      const text = row.items.map(i => i.hira).join('、');
+      speakJapanese(text);
+      showToast(`正在连读：${row.name}`);
+    }
+
+    function toggleRowSelection(rowId, checked) {
+      if (checked) {
+        state.selectedRows[rowId] = true;
+      } else {
+        delete state.selectedRows[rowId];
+      }
+      savePersistedState();
+      updateBadgesAndBanner();
+      renderGojuonChart();
+      renderQuizRowCheckboxes();
+    }
+
+    function selectRowPreset(preset) {
+      state.selectedRows = {};
+      if (preset === 'first3') {
+        ['row_a', 'row_ka', 'row_sa'].forEach(id => state.selectedRows[id] = true);
+        state.category = 'seion';
+        showToast('已勾选：第1~3行（あ・か・さ行，共15个音）');
+      } else if (preset === 'first5') {
+        ['row_a', 'row_ka', 'row_sa', 'row_ta', 'row_na'].forEach(id => state.selectedRows[id] = true);
+        state.category = 'seion';
+        showToast('已勾选：前5行（あ〜な行，共25个音）');
+      } else if (preset === 'allSeion') {
+        KANA_ROWS.filter(r => r.category === 'seion').forEach(r => state.selectedRows[r.id] = true);
+        showToast('已勾选：全部46个清音');
+      } else if (preset === 'allDakuon') {
+        KANA_ROWS.filter(r => r.category === 'dakuon').forEach(r => state.selectedRows[r.id] = true);
+        showToast('已勾选：全部25个浊音与半浊音');
+      } else if (preset === 'allYouon') {
+        KANA_ROWS.filter(r => r.category === 'youon').forEach(r => state.selectedRows[r.id] = true);
+        showToast('已勾选：全部33个拗音');
+      } else if (preset === 'currentCat') {
+        KANA_ROWS.filter(r => r.category === state.category).forEach(r => state.selectedRows[r.id] = true);
+        showToast('已全选当前分类所有行');
+      } else if (preset === 'clear') {
+        showToast('已清空行勾选');
+      }
+      savePersistedState();
+      updateBadgesAndBanner();
+      renderGojuonChart();
+      renderQuizRowCheckboxes();
+      if (state.mainTab === 'quiz' && state.quizSource === 'rows') {
+        startNewQuizSession();
+      }
+    }
+
+    function quizSingleRow(rowId) {
+      state.selectedRows = { [rowId]: true };
+      state.quizSource = 'rows';
+      savePersistedState();
+      updateBadgesAndBanner();
+      switchMainTab('quiz');
+      startNewQuizSession();
+    }
+
+    function quickStartSelectedQuiz() {
+      const selected = getSelectedRowKanas();
+      if (selected.length === 0) {
+        selectRowPreset('first3');
+      }
+      state.quizSource = 'rows';
+      switchMainTab('quiz');
+      startNewQuizSession();
+    }
+
+    function toggleFavorite(kanaId) {
+      const item = KANA_MAP[kanaId];
+      if (state.favorites[kanaId]) {
+        delete state.favorites[kanaId];
+        showToast(`已从收藏夹移除「${item.hira} / ${item.kata}」`);
+      } else {
+        state.favorites[kanaId] = true;
+        showToast(`★ 已收藏「${item.hira} / ${item.kata} (${item.romaji})」`);
+      }
+      savePersistedState();
+      updateBadgesAndBanner();
+      if (state.mainTab === 'chart') renderGojuonChart();
+      if (state.mainTab === 'review') renderReviewHub();
+      updateQuizFavButton();
+    }
+
+    // =========================================================================
+    // 6. KANA DETAIL MODAL + VOCABULARY + STROKE CANVAS
+    // =========================================================================
+    function openKanaModal(kanaId) {
+      const item = KANA_MAP[kanaId];
+      if (!item) return;
+      state.modalKanaId = kanaId;
+      state.padGhostMode = state.scriptMode === 'katakana' ? 'kata' : 'hira';
+
+      document.getElementById('modalMainKana').textContent = state.scriptMode === 'katakana' ? item.kata : item.hira;
+      document.getElementById('modalRomaji').textContent = item.romaji;
+      document.getElementById('modalRowLabel').textContent = item.rowName;
+      document.getElementById('modalHira').textContent = item.hira;
+      document.getElementById('modalKata').textContent = item.kata;
+      document.getElementById('modalRomaText').textContent = item.romaji;
+      document.getElementById('modalOriginText').textContent = item.origin;
+
+      updateModalFavBtn();
+
+      // Render Words
+      const wordsBox = document.getElementById('modalWordsList');
+      wordsBox.innerHTML = (item.words || []).map(w => `
+        <div onclick="speakJapanese('${w.jp}')"
+             class="p-2.5 rounded-xl border border-washi-200 bg-washi-50 hover:bg-matcha-50 hover:border-matcha-500 cursor-pointer transition-all flex items-center justify-between gap-2">
+          <div>
+            <div class="flex items-baseline gap-2">
+              <span class="kana-font text-sm font-bold text-sumi-900">${w.jp}</span>
+              <span class="text-xs text-sumi-500">(${w.kj})</span>
+              <span class="text-xs font-mono text-matcha-700">${w.rm}</span>
+            </div>
+            <div class="text-xs text-sumi-700 mt-0.5">释义：${w.cn}</div>
+          </div>
+          <span class="px-2 py-1 rounded-lg bg-white border border-washi-200 text-xs text-matcha-700 font-medium shrink-0">🔊 听单词</span>
+        </div>
+      `).join('');
+
+      setPadGhost(state.padGhostMode);
+      clearPracticeCanvas();
+
+      const modal = document.getElementById('kanaDetailModal');
+      modal.classList.remove('hidden');
+      speakJapanese(item.hira);
+    }
+
+    function closeKanaModal() {
+      document.getElementById('kanaDetailModal').classList.add('hidden');
+    }
+
+    function speakCurrentModalKana() {
+      const item = KANA_MAP[state.modalKanaId];
+      if (item) speakJapanese(item.hira);
+    }
+
+    function toggleModalFavorite() {
+      toggleFavorite(state.modalKanaId);
+      updateModalFavBtn();
+    }
+
+    function updateModalFavBtn() {
+      const isFav = !!state.favorites[state.modalKanaId];
+      const btn = document.getElementById('modalFavBtn');
+      if (!btn) return;
+      if (isFav) {
+        btn.textContent = '★ 已收藏';
+        btn.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full border border-amberjp-500 bg-amberjp-50 text-amberjp-600 transition-all';
+      } else {
+        btn.textContent = '☆ 收藏';
+        btn.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full border border-washi-300 bg-white hover:bg-amberjp-50 text-sumi-700 transition-all';
+      }
+    }
+
+    function navigateModalKana(delta) {
+      const idx = ALL_KANA_LIST.findIndex(k => k.id === state.modalKanaId);
+      if (idx === -1) return;
+      const nextIdx = (idx + delta + ALL_KANA_LIST.length) % ALL_KANA_LIST.length;
+      openKanaModal(ALL_KANA_LIST[nextIdx].id);
+    }
+
+    function setPadGhost(mode) {
+      state.padGhostMode = mode;
+      const item = KANA_MAP[state.modalKanaId];
+      if (!item) return;
+      document.getElementById('padGhostChar').textContent = mode === 'kata' ? item.kata : item.hira;
+      document.getElementById('padSwitchHira').className = mode === 'hira' ? 'px-2 py-0.5 rounded bg-matcha-100 text-matcha-700 font-semibold' : 'px-2 py-0.5 rounded bg-washi-100 text-sumi-700';
+      document.getElementById('padSwitchKata').className = mode === 'kata' ? 'px-2 py-0.5 rounded bg-matcha-100 text-matcha-700 font-semibold' : 'px-2 py-0.5 rounded bg-washi-100 text-sumi-700';
+      clearPracticeCanvas();
+    }
+
+    function initPracticeCanvas() {
+      const canvas = document.getElementById('practiceCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let drawing = false;
+
+      const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * (canvas.width / rect.width),
+          y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+      };
+
+      const startDraw = (e) => {
+        e.preventDefault();
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      };
+
+      const moveDraw = (e) => {
+        if (!drawing) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#2D5043';
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      };
+
+      const endDraw = () => {
+        drawing = false;
+      };
+
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mousemove', moveDraw);
+      window.addEventListener('mouseup', endDraw);
+      canvas.addEventListener('touchstart', startDraw, { passive: false });
+      canvas.addEventListener('touchmove', moveDraw, { passive: false });
+      window.addEventListener('touchend', endDraw);
+    }
+
+    function clearPracticeCanvas() {
+      const canvas = document.getElementById('practiceCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // =========================================================================
+    // 7. RANGE QUIZ & FLASHCARD ENGINE (范围随机抽查 & 错题集自动收录)
+    // =========================================================================
+    function renderQuizRowCheckboxes() {
+      const box = document.getElementById('quizRowCheckboxes');
+      if (!box) return;
+
+      box.innerHTML = KANA_ROWS.map(row => {
+        const checked = !!state.selectedRows[row.id];
+        return `
+          <label class="flex items-center gap-1.5 p-2 rounded-xl border ${checked ? 'border-matcha-600 bg-matcha-50/70 text-matcha-800 font-semibold' : 'border-washi-200 bg-washi-50 text-sumi-700'} text-xs cursor-pointer select-none">
+            <input type="checkbox" ${checked ? 'checked' : ''}
+                   onchange="toggleRowSelection('${row.id}', this.checked)"
+                   class="rounded text-matcha-600 focus:ring-0">
+            <span class="truncate">${row.name.replace('第', '').replace(' · ', ' ')}</span>
+          </label>
+        `;
+      }).join('');
+
+      updateQuizPoolSummaryText();
+    }
+
+    function updateQuizPoolSummaryText() {
+      const summaryEl = document.getElementById('quizPoolSummary');
+      if (!summaryEl) return;
+      const pool = getActiveQuizPool();
+      if (state.quizSource === 'rows') {
+        const rowCount = Object.keys(state.selectedRows).length;
+        summaryEl.textContent = `已选 ${rowCount} 行 · 共 ${pool.length} 音`;
+      } else if (state.quizSource === 'mistakes') {
+        summaryEl.textContent = `错题专项 · 共 ${pool.length} 音`;
+      } else if (state.quizSource === 'favorites') {
+        summaryEl.textContent = `收藏专项 · 共 ${pool.length} 音`;
+      } else {
+        summaryEl.textContent = `易混特训 · 共 ${pool.length} 音`;
+      }
+    }
+
+    function setQuizSource(src) {
+      state.quizSource = src;
+      ['rows', 'mistakes', 'favorites'].forEach(s => {
+        const btn = document.getElementById(`quizSrc-${s}`);
+        if (!btn) return;
+        if (s === src) {
+          btn.className = 'px-3 py-2 rounded-xl text-xs font-semibold border transition-all bg-matcha-600 text-white border-matcha-600';
+        } else {
+          btn.className = 'px-3 py-2 rounded-xl text-xs font-semibold border transition-all bg-washi-50 text-sumi-700 border-washi-200 hover:bg-washi-100';
+        }
+      });
+      const rowBox = document.getElementById('quizRowSelectorBox');
+      if (rowBox) rowBox.classList.toggle('hidden', src !== 'rows');
+      updateQuizPoolSummaryText();
+      startNewQuizSession();
+    }
+
+    function setQuizType(type) {
+      state.quizType = type;
+      ['mixed', 'kana2romaji', 'hira2kata', 'audio2kana', 'typing', 'flashcard'].forEach(t => {
+        const btn = document.getElementById(`qType-${t}`);
+        if (!btn) return;
+        if (t === type) {
+          btn.classList.add('border-matcha-600', 'bg-matcha-50/70');
+          btn.classList.remove('border-washi-200', 'bg-washi-50');
+        } else {
+          btn.classList.remove('border-matcha-600', 'bg-matcha-50/70');
+          btn.classList.add('border-washi-200', 'bg-washi-50');
+        }
+      });
+      startNewQuizSession();
+    }
+
+    function getActiveQuizPool() {
+      if (state.quizSource === 'mistakes') {
+        return Object.keys(state.mistakes).map(id => KANA_MAP[id]).filter(Boolean);
+      }
+      if (state.quizSource === 'favorites') {
+        return Object.keys(state.favorites).map(id => KANA_MAP[id]).filter(Boolean);
+      }
+      if (state.quizSource === 'custom') {
+        return state.quizCustomIds.map(id => KANA_MAP[id]).filter(Boolean);
+      }
+      return getSelectedRowKanas();
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function buildQuestionForKana(targetKana, pool) {
+      const subTypes = ['hira2romaji', 'kata2romaji', 'romaji2hira', 'romaji2kata', 'hira2kata', 'kata2hira', 'audio2kana'];
+      let chosenSub = 'hira2romaji';
+
+      if (state.quizType === 'mixed') {
+        chosenSub = subTypes[Math.floor(Math.random() * subTypes.length)];
+      } else if (state.quizType === 'kana2romaji') {
+        if (state.scriptMode === 'katakana') chosenSub = 'kata2romaji';
+        else if (state.scriptMode === 'hiragana') chosenSub = 'hira2romaji';
+        else chosenSub = Math.random() < 0.5 ? 'hira2romaji' : 'kata2romaji';
+      } else if (state.quizType === 'hira2kata') {
+        chosenSub = Math.random() < 0.5 ? 'hira2kata' : 'kata2hira';
+      } else if (state.quizType === 'audio2kana') {
+        chosenSub = 'audio2kana';
+      } else if (state.quizType === 'typing') {
+        chosenSub = state.scriptMode === 'katakana' ? 'typing_kata' : (Math.random() < 0.5 ? 'typing_hira' : 'typing_kata');
+      } else if (state.quizType === 'flashcard') {
+        chosenSub = 'flashcard';
+      }
+
+      // Distractor pool (prefer chosen pool, fallback to ALL_KANA_LIST if pool < 4)
+      const sourceForDistractors = pool.length >= 4 ? pool : ALL_KANA_LIST;
+      const others = shuffleArray(sourceForDistractors.filter(k => k.id !== targetKana.id && k.romaji !== targetKana.romaji)).slice(0, 3);
+      const optionsKana = shuffleArray([targetKana, ...others]);
+
+      let promptLabel = '';
+      let promptMain = '';
+      let isAudioPrompt = false;
+      let correctOptionId = targetKana.id;
+      let optionFormat = 'romaji'; // 'romaji' | 'hira' | 'kata'
+
+      if (chosenSub === 'hira2romaji') {
+        promptLabel = '请选择该【平假名】的正确读音';
+        promptMain = targetKana.hira;
+        optionFormat = 'romaji';
+      } else if (chosenSub === 'kata2romaji') {
+        promptLabel = '请选择该【片假名】的正确读音';
+        promptMain = targetKana.kata;
+        optionFormat = 'romaji';
+      } else if (chosenSub === 'romaji2hira') {
+        promptLabel = '请根据【读音】选出对应的【平假名】';
+        promptMain = targetKana.romaji;
+        optionFormat = 'hira';
+      } else if (chosenSub === 'romaji2kata') {
+        promptLabel = '请根据【读音】选出对应的【片假名】';
+        promptMain = targetKana.romaji;
+        optionFormat = 'kata';
+      } else if (chosenSub === 'hira2kata') {
+        promptLabel = '请选出该平假名对应的【片假名】';
+        promptMain = targetKana.hira;
+        optionFormat = 'kata';
+      } else if (chosenSub === 'kata2hira') {
+        promptLabel = '请选出该片假名对应的【平假名】';
+        promptMain = targetKana.kata;
+        optionFormat = 'hira';
+      } else if (chosenSub === 'audio2kana') {
+        promptLabel = '🎧 听发音，选出正确的假名';
+        promptMain = '🔊 点击播放发音';
+        isAudioPrompt = true;
+        optionFormat = state.scriptMode === 'katakana' ? 'kata' : 'both_kana';
+      } else if (chosenSub === 'typing_hira' || chosenSub === 'typing_kata') {
+        promptLabel = '⌨️ 请输入该假名的罗马音并按回车';
+        promptMain = chosenSub === 'typing_kata' ? targetKana.kata : targetKana.hira;
+      }
+
+      return {
+        kana: targetKana,
+        subType: chosenSub,
+        promptLabel,
+        promptMain,
+        isAudioPrompt,
+        options: optionsKana.map(opt => ({
+          id: opt.id,
+          label: optionFormat === 'romaji' ? opt.romaji :
+                 optionFormat === 'hira' ? opt.hira :
+                 optionFormat === 'kata' ? opt.kata : `${opt.hira} / ${opt.kata}`
+        })),
+        correctOptionId
+      };
+    }
+
+    function startNewQuizSession() {
+      updateQuizPoolSummaryText();
+      const pool = getActiveQuizPool();
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      if (feedbackBox) feedbackBox.classList.add('hidden');
+
+      if (pool.length === 0) {
+        state.quizQueue = [];
+        renderQuizArena();
+        return;
+      }
+
+      const shuffled = shuffleArray(pool);
+      state.quizQueue = shuffled.map(k => buildQuestionForKana(k, pool));
+      state.quizIndex = 0;
+      state.quizCorrect = 0;
+      state.quizWrong = 0;
+      state.quizAnswered = false;
+      state.flashcardFlipped = false;
+
+      renderQuizArena();
+    }
+
+    function updateQuizFavButton() {
+      const btn = document.getElementById('quizFavCurrentBtn');
+      if (!btn) return;
+      const currentQ = state.quizQueue[state.quizIndex];
+      if (!currentQ) {
+        btn.classList.add('hidden');
+        return;
+      }
+      btn.classList.remove('hidden');
+      const isFav = !!state.favorites[currentQ.kana.id];
+      btn.textContent = isFav ? '★ 已收藏此音' : '☆ 收藏此音';
+      btn.className = isFav
+        ? 'px-2.5 py-1 rounded-lg border border-amberjp-500 bg-amberjp-50 text-amberjp-600 font-semibold transition-all'
+        : 'px-2.5 py-1 rounded-lg border border-washi-200 hover:bg-amberjp-50 text-sumi-700 transition-all';
+    }
+
+    function toggleFavoriteCurrentQuizKana() {
+      const currentQ = state.quizQueue[state.quizIndex];
+      if (!currentQ) return;
+      toggleFavorite(currentQ.kana.id);
+    }
+
+    function renderQuizArena() {
+      const arena = document.getElementById('quizArenaBody');
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      if (!arena) return;
+
+      document.getElementById('quizCorrectNum').textContent = state.quizCorrect;
+      document.getElementById('quizWrongNum').textContent = state.quizWrong;
+
+      if (state.quizQueue.length === 0) {
+        document.getElementById('quizProgressText').textContent = '0 / 0';
+        document.getElementById('quizProgressBar').style.width = '0%';
+        updateQuizFavButton();
+        arena.innerHTML = `
+          <div class="text-center space-y-3 max-w-sm">
+            <div class="text-3xl">🌿</div>
+            <h4 class="text-base font-bold text-sumi-900">当前抽查范围为空</h4>
+            <p class="text-xs text-sumi-500">如果是「错题集」或「收藏夹」为空，说明还没有错题或收藏；也可以在左侧勾选要复习的行（如第1~3行）。</p>
+            <button onclick="selectRowPreset('first3'); setQuizSource('rows');" class="px-4 py-2 rounded-xl bg-matcha-600 text-white text-xs font-semibold">
+              载入第1~3行 (15音) 立即体验
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // Check if session finished
+      if (state.quizIndex >= state.quizQueue.length) {
+        const total = state.quizQueue.length;
+        const rate = Math.round((state.quizCorrect / total) * 100);
+        document.getElementById('quizProgressText').textContent = `已完成 ${total} / ${total}`;
+        document.getElementById('quizProgressBar').style.width = '100%';
+        if (feedbackBox) feedbackBox.classList.add('hidden');
+        updateQuizFavButton();
+
+        const mistakeCount = Object.keys(state.mistakes).length;
+        arena.innerHTML = `
+          <div class="text-center space-y-4 max-w-md py-4">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-matcha-50 border border-matcha-200 flex items-center justify-center text-2xl font-bold text-matcha-700">
+              ${rate}%
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-sumi-900">本轮范围抽查完成！</h4>
+              <p class="text-xs text-sumi-500 mt-1">共抽查 ${total} 个假名：答对 <strong class="text-matcha-700">${state.quizCorrect}</strong> 题，答错 <strong class="text-sakura-600">${state.quizWrong}</strong> 题（错题已自动放入错题集）。</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+              <button onclick="startNewQuizSession()" class="px-4 py-2.5 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white text-xs font-semibold shadow-sm">
+                再来一轮随机抽查
+              </button>
+              ${
+                mistakeCount > 0
+                  ? `<button onclick="setQuizSource('mistakes')" class="px-4 py-2.5 rounded-xl bg-sakura-500 hover:bg-sakura-600 text-white text-xs font-semibold shadow-sm">
+                       立即专项消灭错题 (${mistakeCount})
+                     </button>`
+                  : ''
+              }
+              <button onclick="switchMainTab('chart')" class="px-4 py-2.5 rounded-xl bg-washi-100 hover:bg-washi-200 text-sumi-700 text-xs font-semibold">
+                返回五十音图
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const currentQ = state.quizQueue[state.quizIndex];
+      const total = state.quizQueue.length;
+      document.getElementById('quizProgressText').textContent = `第 ${state.quizIndex + 1} / ${total} 题 · ${currentQ.kana.rowName}`;
+      document.getElementById('quizProgressBar').style.width = `${Math.round(((state.quizIndex + 1) / total) * 100)}%`;
+      updateQuizFavButton();
+
+      // Auto speak if audio2kana prompt
+      if (currentQ.isAudioPrompt && !state.quizAnswered) {
+        setTimeout(() => speakJapanese(currentQ.kana.hira), 120);
+      }
+
+      // Flashcard Mode
+      if (currentQ.subType === 'flashcard') {
+        const k = currentQ.kana;
+        const frontChar = state.scriptMode === 'katakana' ? k.kata : (state.scriptMode === 'both' ? `${k.hira} / ${k.kata}` : k.hira);
+        arena.innerHTML = `
+          <div class="w-full max-w-md text-center space-y-5">
+            <div class="text-xs text-sumi-500">先在心里默念它的读音和对应平/片假名，再点击卡片翻面检验</div>
+            <div onclick="flipCurrentFlashcard()"
+                 class="p-8 rounded-3xl border-2 border-washi-200 hover:border-matcha-500 bg-washi-50/70 cursor-pointer transition-all space-y-3">
+              <div class="kana-font text-6xl font-bold text-sumi-900">${frontChar}</div>
+              ${
+                state.flashcardFlipped
+                  ? `<div class="pt-4 border-t border-washi-200 space-y-2">
+                       <div class="text-lg font-mono font-bold text-matcha-700">${k.romaji} · 平:${k.hira} / 片:${k.kata}</div>
+                       <div class="text-xs text-sumi-700">${k.origin}</div>
+                       <div class="text-xs text-matcha-700 font-medium">代表词：${k.words[0].jp} (${k.words[0].cn})</div>
+                     </div>`
+                  : `<div class="text-xs text-matcha-700 font-medium pt-2">👆 点击翻转查看答案并听发音</div>`
+              }
+            </div>
+            <div class="grid grid-cols-3 gap-2.5">
+              <button onclick="gradeFlashcard('wrong')" class="py-2.5 rounded-xl bg-sakura-50 hover:bg-sakura-100 text-sakura-600 border border-sakura-500/30 text-xs font-bold">
+                ✗ 没记住 (入错题)
+              </button>
+              <button onclick="gradeFlashcard('fav')" class="py-2.5 rounded-xl bg-amberjp-50 hover:bg-amberjp-100 text-amberjp-600 border border-amberjp-500/30 text-xs font-bold">
+                ★ 不太熟 (入收藏)
+              </button>
+              <button onclick="gradeFlashcard('good')" class="py-2.5 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white text-xs font-bold">
+                ✓ 秒会！下一个
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Typing Mode
+      if (currentQ.subType === 'typing_hira' || currentQ.subType === 'typing_kata') {
+        arena.innerHTML = `
+          <div class="w-full max-w-md text-center space-y-5">
+            <div class="text-xs font-medium text-sumi-500">${currentQ.promptLabel}</div>
+            <div class="kana-font text-6xl font-bold text-sumi-900 py-2">${currentQ.promptMain}</div>
+            <form onsubmit="submitTypingAnswer(event)" class="flex items-center gap-2 max-w-xs mx-auto">
+              <input id="quizTypingInput" type="text" autocomplete="off" placeholder="输入罗马音 (如 a, shi, tsu)"
+                     ${state.quizAnswered ? 'disabled' : ''}
+                     class="flex-1 px-4 py-2.5 rounded-xl border border-washi-300 bg-washi-50 text-center font-mono text-base focus:outline-none focus:border-matcha-600">
+              <button type="submit" ${state.quizAnswered ? 'disabled' : ''}
+                      class="px-4 py-2.5 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white text-xs font-bold">
+                确认
+              </button>
+            </form>
+          </div>
+        `;
+        if (!state.quizAnswered) {
+          setTimeout(() => {
+            const inp = document.getElementById('quizTypingInput');
+            if (inp) inp.focus();
+          }, 50);
+        }
+        return;
+      }
+
+      // Multiple Choice Mode
+      const optionsHtml = currentQ.options.map(opt => {
+        let btnStyle = 'border-washi-200 bg-washi-50 hover:bg-matcha-50 hover:border-matcha-500 text-sumi-900';
+        if (state.quizAnswered) {
+          if (opt.id === currentQ.correctOptionId) {
+            btnStyle = 'border-matcha-600 bg-matcha-100 text-matcha-800 ring-2 ring-matcha-500/30';
+          } else if (opt.id === state.lastChosenOptionId) {
+            btnStyle = 'border-sakura-500 bg-sakura-100 text-sakura-600';
+          } else {
+            btnStyle = 'border-washi-200 bg-washi-50 opacity-50';
+          }
+        }
+        return `
+          <button onclick="submitQuizChoice('${opt.id}')"
+                  ${state.quizAnswered ? 'disabled' : ''}
+                  class="py-3.5 px-4 rounded-2xl border-2 ${btnStyle} kana-font text-xl font-bold transition-all shadow-2xs">
+            ${opt.label}
+          </button>
+        `;
+      }).join('');
+
+      arena.innerHTML = `
+        <div class="w-full max-w-md text-center space-y-5">
+          <div class="text-xs font-medium text-sumi-500">${currentQ.promptLabel}</div>
+          ${
+            currentQ.isAudioPrompt
+              ? `<button onclick="speakJapanese('${currentQ.kana.hira}')"
+                         class="mx-auto px-6 py-5 rounded-3xl bg-matcha-50 hover:bg-matcha-100 border-2 border-matcha-200 text-matcha-700 font-bold text-base flex items-center gap-2 transition-all">
+                   <span class="text-2xl">🔊</span>
+                   <span>点击重听发音</span>
+                 </button>`
+              : `<div class="kana-font text-6xl font-bold text-sumi-900 py-1">${currentQ.promptMain}</div>`
+          }
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            ${optionsHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function flipCurrentFlashcard() {
+      const currentQ = state.quizQueue[state.quizIndex];
+      if (!currentQ) return;
+      state.flashcardFlipped = true;
+      speakJapanese(currentQ.kana.hira);
+      renderQuizArena();
+    }
+
+    function gradeFlashcard(grade) {
+      const currentQ = state.quizQueue[state.quizIndex];
+      if (!currentQ) return;
+      const k = currentQ.kana;
+      if (grade === 'wrong') {
+        state.quizWrong++;
+        recordMistake(k.id);
+        showToast(`已将「${k.hira}/${k.kata}」加入错题集`);
+      } else if (grade === 'fav') {
+        state.quizCorrect++;
+        state.favorites[k.id] = true;
+        savePersistedState();
+        showToast(`★ 已将「${k.hira}/${k.kata}」加入收藏夹`);
+      } else {
+        state.quizCorrect++;
+        recordCorrectInQuiz(k.id);
+      }
+      state.flashcardFlipped = false;
+      state.quizIndex++;
+      updateBadgesAndBanner();
+      renderQuizArena();
+    }
+
+    function submitTypingAnswer(e) {
+      e.preventDefault();
+      if (state.quizAnswered) return;
+      const inp = document.getElementById('quizTypingInput');
+      if (!inp) return;
+      const val = inp.value.trim().toLowerCase();
+      if (!val) return;
+      const currentQ = state.quizQueue[state.quizIndex];
+      const k = currentQ.kana;
+      // Accept standard variants (e.g. si/shi, ti/chi, tu/tsu, hu/fu, zi/ji, wo/o)
+      const aliases = {
+        shi: ['shi', 'si'],
+        chi: ['chi', 'ti'],
+        tsu: ['tsu', 'tu'],
+        fu: ['fu', 'hu'],
+        ji: ['ji', 'zi', 'di'],
+        zu: ['zu', 'du'],
+        wo: ['wo', 'o']
+      };
+      const validList = aliases[k.romaji] || [k.romaji];
+      const isRight = validList.includes(val);
+      handleQuizOutcome(isRight, k.id);
+    }
+
+    function submitQuizChoice(optionId) {
+      if (state.quizAnswered) return;
+      state.lastChosenOptionId = optionId;
+      const currentQ = state.quizQueue[state.quizIndex];
+      const isRight = optionId === currentQ.correctOptionId;
+      handleQuizOutcome(isRight, optionId);
+    }
+
+    let autoNextTimer = null;
+
+    function handleQuizOutcome(isRight, chosenId) {
+      if (autoNextTimer) {
+        clearTimeout(autoNextTimer);
+        autoNextTimer = null;
+      }
+      state.quizAnswered = true;
+      const currentQ = state.quizQueue[state.quizIndex];
+      const k = currentQ.kana;
+
+      // Always speak the correct kana pronunciation for reinforcement
+      speakJapanese(k.hira);
+
+      if (isRight) {
+        state.quizCorrect++;
+        recordCorrectInQuiz(k.id);
+        renderQuizArena();
+        updateBadgesAndBanner();
+        // Auto-jump to next question smoothly after a brief green flash (280ms)
+        autoNextTimer = setTimeout(() => {
+          nextQuizQuestion();
+        }, 280);
+        return;
+      }
+
+      // Only stay and show detailed explanation when answered WRONG
+      state.quizWrong++;
+      recordMistake(k.id);
+      renderQuizArena();
+
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      if (feedbackBox) {
+        feedbackBox.classList.remove('hidden');
+        const word = k.words && k.words[0] ? `${k.words[0].jp} (${k.words[0].cn})` : '';
+        feedbackBox.className = 'mt-4 p-4 rounded-2xl border border-sakura-500/40 bg-sakura-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3';
+        feedbackBox.innerHTML = `
+          <div class="space-y-0.5">
+            <div class="text-xs font-bold text-sakura-600">✗ 答错了，已自动加入【错题集】！ 正确答案：平「${k.hira}」/ 片「${k.kata}」(${k.romaji})</div>
+            <div class="text-xs text-sumi-700">${k.origin} ${word ? `｜ 代表词：${word}` : ''}</div>
+          </div>
+          <button onclick="nextQuizQuestion()" class="px-4 py-2 rounded-xl bg-sakura-500 hover:bg-sakura-600 text-white text-xs font-bold shrink-0">
+            记住了，下一题 →
+          </button>
+        `;
+      }
+      updateBadgesAndBanner();
+    }
+
+    function nextQuizQuestion() {
+      state.quizAnswered = false;
+      state.lastChosenOptionId = null;
+      state.quizIndex++;
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      if (feedbackBox) feedbackBox.classList.add('hidden');
+      renderQuizArena();
+    }
+
+    function recordMistake(kanaId) {
+      if (!state.mistakes[kanaId]) {
+        state.mistakes[kanaId] = { count: 1, streak: 0, updatedAt: Date.now() };
+      } else {
+        state.mistakes[kanaId].count += 1;
+        state.mistakes[kanaId].streak = 0;
+        state.mistakes[kanaId].updatedAt = Date.now();
+      }
+      savePersistedState();
+    }
+
+    function recordCorrectInQuiz(kanaId) {
+      if (state.mistakes[kanaId]) {
+        state.mistakes[kanaId].streak = (state.mistakes[kanaId].streak || 0) + 1;
+        // If practicing inside Mistakes mode and answered right twice in a row, offer/auto graduate!
+        if (state.quizSource === 'mistakes' && state.mistakes[kanaId].streak >= 2) {
+          delete state.mistakes[kanaId];
+          showToast(`🎉 连续答对！「${KANA_MAP[kanaId].hira}/${KANA_MAP[kanaId].kata}」已从错题集毕业移除`);
+        }
+        savePersistedState();
+      }
+    }
+
+    // =========================================================================
+    // 8. REVIEW HUB (错题集 & 收藏夹管理)
+    // =========================================================================
+    function renderReviewHub() {
+      const mistakeIds = Object.keys(state.mistakes);
+      const favIds = Object.keys(state.favorites);
+
+      document.getElementById('reviewMistakeTotal').textContent = mistakeIds.length;
+      document.getElementById('reviewFavTotal').textContent = favIds.length;
+
+      const mContainer = document.getElementById('mistakeListContainer');
+      if (mistakeIds.length === 0) {
+        mContainer.innerHTML = `
+          <div class="p-8 text-center rounded-2xl bg-washi-50 border border-dashed border-washi-300 space-y-2">
+            <div class="text-2xl">✨</div>
+            <div class="text-xs font-semibold text-sumi-700">目前没有错题记录</div>
+            <div class="text-[11px] text-sumi-500">在「范围抽查」中答错的假名会自动收录到这里，方便你来回针对性复习。</div>
+          </div>
+        `;
+      } else {
+        mContainer.innerHTML = mistakeIds.map(id => {
+          const item = KANA_MAP[id];
+          const info = state.mistakes[id];
+          if (!item) return '';
+          return `
+            <div class="p-3 rounded-xl border border-washi-200 bg-washi-50/70 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <button onclick="speakJapanese('${item.hira}')"
+                        class="w-11 h-11 rounded-xl bg-sakura-50 border border-sakura-500/30 text-sakura-600 kana-font font-bold text-lg flex items-center justify-center shrink-0">
+                  ${item.hira}/${item.kata}
+                </button>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold text-sumi-900">${item.romaji}</span>
+                    <span class="text-[11px] px-1.5 py-0.2 rounded bg-sakura-100 text-sakura-600 font-semibold">累计答错 ${info.count} 次</span>
+                    <span class="text-[11px] text-sumi-500">${item.rowName}</span>
+                  </div>
+                  <p class="text-xs text-sumi-700 mt-0.5 line-clamp-1">${item.origin}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="openKanaModal('${item.id}')" class="px-2.5 py-1 rounded-lg bg-white border border-washi-200 text-xs text-sumi-700 hover:bg-washi-100">详解</button>
+                <button onclick="removeSingleMistake('${item.id}')" class="px-2.5 py-1 rounded-lg bg-matcha-50 text-matcha-700 border border-matcha-200 text-xs font-medium hover:bg-matcha-100">已掌握移除</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const fContainer = document.getElementById('favoriteListContainer');
+      if (favIds.length === 0) {
+        fContainer.innerHTML = `
+          <div class="p-8 text-center rounded-2xl bg-washi-50 border border-dashed border-washi-300 space-y-2">
+            <div class="text-2xl">⭐</div>
+            <div class="text-xs font-semibold text-sumi-700">收藏夹暂无假名</div>
+            <div class="text-[11px] text-sumi-500">在五十音图卡片右上角或抽查界面点击 ☆，即可把不太熟练的假名收藏起来重点照顾。</div>
+          </div>
+        `;
+      } else {
+        fContainer.innerHTML = favIds.map(id => {
+          const item = KANA_MAP[id];
+          if (!item) return '';
+          return `
+            <div class="p-3 rounded-xl border border-washi-200 bg-washi-50/70 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <button onclick="speakJapanese('${item.hira}')"
+                        class="w-11 h-11 rounded-xl bg-amberjp-50 border border-amberjp-500/30 text-amberjp-600 kana-font font-bold text-lg flex items-center justify-center shrink-0">
+                  ${item.hira}/${item.kata}
+                </button>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold text-sumi-900">${item.romaji}</span>
+                    <span class="text-[11px] text-sumi-500">${item.rowName}</span>
+                    <span class="text-[11px] text-matcha-700 font-medium">代表词: ${item.words[0].jp}(${item.words[0].cn})</span>
+                  </div>
+                  <p class="text-xs text-sumi-700 mt-0.5 line-clamp-1">${item.origin}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="openKanaModal('${item.id}')" class="px-2.5 py-1 rounded-lg bg-white border border-washi-200 text-xs text-sumi-700 hover:bg-washi-100">详解</button>
+                <button onclick="toggleFavorite('${item.id}')" class="px-2.5 py-1 rounded-lg bg-washi-100 text-sumi-700 text-xs hover:bg-washi-200">取消收藏</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function removeSingleMistake(kanaId) {
+      delete state.mistakes[kanaId];
+      savePersistedState();
+      updateBadgesAndBanner();
+      renderReviewHub();
+      showToast('已从错题集中移除');
+    }
+
+    function clearAllMistakes() {
+      state.mistakes = {};
+      savePersistedState();
+      updateBadgesAndBanner();
+      renderReviewHub();
+      showToast('已清空全部错题记录');
+    }
+
+    function clearAllFavorites() {
+      state.favorites = {};
+      savePersistedState();
+      updateBadgesAndBanner();
+      renderReviewHub();
+      showToast('已清空全部收藏假名');
+    }
+
+    function startReviewQuiz(sourceType) {
+      const list = sourceType === 'mistakes' ? Object.keys(state.mistakes) : Object.keys(state.favorites);
+      if (list.length === 0) {
+        showToast(sourceType === 'mistakes' ? '当前没有错题可抽查' : '当前收藏夹为空，请先收藏假名');
+        return;
+      }
+      switchMainTab('quiz');
+      setQuizSource(sourceType);
+    }
+
+    // =========================================================================
+    // 9. 7-DAY PLAN & CONFUSING KANA LAB
+    // =========================================================================
+    function renderPlanAndConfusingView() {
+      const doneCount = Object.keys(state.completedDays).length;
+      const summaryEl = document.getElementById('planMasterySummary');
+      if (summaryEl) summaryEl.textContent = `已完成 ${doneCount} / 7 天打卡`;
+
+      const planGrid = document.getElementById('sevenDayPlanGrid');
+      if (planGrid) {
+        planGrid.innerHTML = SEVEN_DAY_PLAN.map(d => {
+          const isDone = !!state.completedDays[d.day];
+          const isCurrent = state.activeDay === d.day;
+          return `
+            <div class="rounded-2xl border ${isCurrent ? 'border-matcha-600 bg-matcha-50/30' : 'border-washi-200 bg-washi-50/50'} p-4 flex flex-col justify-between space-y-3">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${isDone ? 'bg-matcha-600 text-white' : 'bg-matcha-100 text-matcha-700'}">
+                    Day ${d.day} · ${d.badge}
+                  </span>
+                  <button onclick="toggleDayComplete(${d.day})"
+                          class="text-xs font-semibold ${isDone ? 'text-matcha-700' : 'text-sumi-500 hover:text-sumi-900'}">
+                    ${isDone ? '✓ 已打卡' : '○ 标记完成'}
+                  </button>
+                </div>
+                <h4 class="text-sm font-bold text-sumi-900">${d.title}</h4>
+                <p class="text-xs text-sumi-700 leading-relaxed">${d.tip}</p>
+              </div>
+              <div class="flex items-center gap-2 pt-2 border-t border-washi-200">
+                <button onclick="loadDayScope(${d.day}, false)" class="flex-1 py-1.5 rounded-xl bg-white border border-washi-200 hover:bg-washi-100 text-xs font-semibold text-sumi-700">
+                  去图表学这天范围
+                </button>
+                <button onclick="loadDayScope(${d.day}, true)" class="flex-1 py-1.5 rounded-xl bg-matcha-600 hover:bg-matcha-700 text-white text-xs font-semibold">
+                  直接抽查这天范围
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const confGrid = document.getElementById('confusingPairsGrid');
+      if (confGrid) {
+        confGrid.innerHTML = CONFUSING_PAIRS.map((pair, idx) => {
+          const items = pair.ids.map(id => KANA_MAP[id]).filter(Boolean);
+          const badgesHtml = items.map(k => `
+            <button onclick="speakJapanese('${k.hira}')"
+                    class="px-3 py-2 rounded-xl bg-white border border-washi-200 hover:border-matcha-600 flex items-center gap-2 transition-all">
+              <span class="kana-font text-xl font-bold text-sumi-900">${k.hira} / ${k.kata}</span>
+              <span class="font-mono text-xs font-semibold text-matcha-700">${k.romaji}</span>
+              <span class="text-xs text-sumi-500">🔊</span>
+            </button>
+          `).join('');
+
+          return `
+            <div class="rounded-2xl border border-washi-200 bg-washi-50/60 p-4 space-y-2.5 flex flex-col justify-between">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <h4 class="text-sm font-bold text-sumi-900">${pair.title}</h4>
+                  <button onclick="quizConfusingPair(${idx})" class="text-xs font-semibold text-matcha-700 hover:underline shrink-0">专项抽查这组 →</button>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  ${badgesHtml}
+                </div>
+                <p class="text-xs text-sumi-700 leading-relaxed">${pair.desc}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function toggleDayComplete(day) {
+      if (state.completedDays[day]) {
+        delete state.completedDays[day];
+      } else {
+        state.completedDays[day] = true;
+        showToast(`🎉 恭喜完成 Day ${day} 学习任务！`);
+      }
+      savePersistedState();
+      renderPlanAndConfusingView();
+    }
+
+    function loadDayScope(day, goQuiz) {
+      const dayObj = SEVEN_DAY_PLAN.find(d => d.day === day);
+      if (!dayObj) return;
+      state.activeDay = day;
+      state.selectedRows = {};
+      dayObj.rows.forEach(rId => state.selectedRows[rId] = true);
+      if (day === 4) state.category = 'dakuon';
+      else if (day === 6) state.category = 'youon';
+      else state.category = 'seion';
+
+      if (day === 5) setScriptMode('katakana');
+
+      savePersistedState();
+      updateBadgesAndBanner();
+
+      if (goQuiz) {
+        state.quizSource = 'rows';
+        switchMainTab('quiz');
+        startNewQuizSession();
+      } else {
+        switchMainTab('chart');
+      }
+      showToast(`已载入 ${dayObj.title}`);
+    }
+
+    function quizConfusingPair(pairIdx) {
+      const pair = CONFUSING_PAIRS[pairIdx];
+      if (!pair) return;
+      state.quizSource = 'custom';
+      // Repeat items so user gets 6 solid comparison questions
+      state.quizCustomIds = [...pair.ids, ...pair.ids, ...pair.ids];
+      switchMainTab('quiz');
+      startNewQuizSession();
+      showToast(`正在特训：${pair.title}`);
+    }
+
+    function startConfusingKanaQuiz() {
+      const allIds = new Set();
+      CONFUSING_PAIRS.forEach(p => p.ids.forEach(id => allIds.add(id)));
+      state.quizSource = 'custom';
+      state.quizCustomIds = Array.from(allIds);
+      switchMainTab('quiz');
+      startNewQuizSession();
+      showToast('已开启全部易混假名专项特训！');
+    }
+
+    // =========================================================================
+    // 10. TOAST & INITIALIZATION
+    // =========================================================================
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById('toastBox');
+      if (!box) return;
+      box.textContent = msg;
+      box.classList.remove('hidden');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        box.classList.add('hidden');
+      }, 2400);
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPersistedState();
+      initSpeechVoices();
+      initPracticeCanvas();
+      setScriptMode(state.scriptMode);
+      updateBadgesAndBanner();
+      renderGojuonChart();
+    });
+  </script>
+</body>
+</html>
